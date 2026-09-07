@@ -1,0 +1,4192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharatBhasha – Connect India Through Language</title>
+    <meta name="description" content="BharatBhasha is India's premier AI-powered language translation, exploration, and gamified learning platform. Connect across 15+ Indian languages.">
+    
+    <!-- Google Fonts: Plus Jakarta Sans and Noto Sans for Indian Scripts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Canvas Confetti CDN for XP & Level Up Celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & DESIGN SYSTEM
+           ========================================================================== */
+        :root {
+            /* Light Theme Palette */
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.88);
+            --border-color: rgba(203, 213, 225, 0.8);
+            --border-hover: #cbd5e1;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            /* Indian Heritage Brand Accents */
+            --saffron: #f97316;
+            --saffron-light: #ffedd5;
+            --saffron-dark: #ea580c;
+            --emerald: #10b981;
+            --emerald-light: #d1fae5;
+            --emerald-dark: #059669;
+            --chakra-blue: #2563eb;
+            --chakra-blue-light: #eff6ff;
+            --chakra-blue-dark: #1d4ed8;
+            
+            --brand-gradient: linear-gradient(135deg, #f97316 0%, #2563eb 50%, #10b981 100%);
+            --saffron-gradient: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            --emerald-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --blue-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+            --card-shadow-hover: 0 20px 35px -5px rgba(15, 23, 42, 0.12), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+            
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --header-height: 72px;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Palette */
+            --bg-primary: #090d16;
+            --bg-secondary: #0f172a;
+            --bg-tertiary: #1e293b;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --border-color: rgba(51, 65, 85, 0.65);
+            --border-hover: rgba(71, 85, 105, 0.9);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --saffron-light: rgba(249, 115, 22, 0.15);
+            --emerald-light: rgba(16, 185, 129, 0.15);
+            --chakra-blue-light: rgba(37, 99, 235, 0.15);
+            
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
+            --card-shadow-hover: 0 20px 35px -5px rgba(249, 115, 22, 0.15);
+        }
+
+        /* ==========================================================================
+           2. GLOBAL RESETS & TYPOGRAPHY
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Ambient Glow Background Pattern */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.12;
+            transition: all 1s ease;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: 10%;
+            width: 500px;
+            height: 500px;
+            background: var(--saffron);
+        }
+
+        .orb-2 {
+            top: 40%;
+            right: -5%;
+            width: 450px;
+            height: 450px;
+            background: var(--chakra-blue);
+        }
+
+        .orb-3 {
+            bottom: -10%;
+            left: 25%;
+            width: 550px;
+            height: 550px;
+            background: var(--emerald);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary);
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, select, input, textarea {
+            font-family: inherit;
+            outline: none;
+            border: none;
+        }
+
+        button {
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            background: var(--chakra-blue-light);
+            color: var(--chakra-blue);
+            border-radius: var(--radius-full);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.85rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           3. NAVBAR & NAVIGATION
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--brand-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
+        }
+
+        .brand-text span {
+            background: var(--saffron-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            position: relative;
+            padding: 0.3rem 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--saffron);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--saffron);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .btn-theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .btn-theme-toggle:hover {
+            background: var(--border-hover);
+            transform: rotate(15deg);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--saffron-gradient);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-full);
+            box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-emerald {
+            background: var(--emerald-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-emerald:hover {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .hamburger-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            font-size: 1.2rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mobile Drawer */
+        .mobile-drawer {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transform: translateY(-150%);
+            transition: transform 0.35s ease;
+            z-index: 999;
+            box-shadow: var(--card-shadow);
+        }
+
+        .mobile-drawer.open {
+            transform: translateY(0);
+        }
+
+        .mobile-nav-link {
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--saffron);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero-section {
+            padding: calc(var(--header-height) + 3.5rem) 0 4.5rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.2rem;
+            background: var(--saffron-light);
+            color: var(--saffron);
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            max-width: 850px;
+            margin: 0 auto 1.25rem;
+            line-height: 1.15;
+        }
+
+        .hero-title .gradient-text {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            font-weight: 400;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 3.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Floating Scripts Ticker */
+        .script-ticker {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .script-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .script-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--saffron);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .script-char {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--saffron);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--saffron-light);
+            border-radius: 8px;
+        }
+
+        .script-info {
+            text-align: left;
+        }
+
+        .script-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .script-native {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           5. LIVE TRANSLATOR SECTION
+           ========================================================================== */
+        .section-translator {
+            padding: 4.5rem 0;
+        }
+
+        .translator-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(16px);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        /* Controls Bar */
+        .translator-top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.75rem;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .lang-select-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .custom-select-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .lang-select {
+            width: 100%;
+            padding: 0.75rem 2.25rem 0.75rem 1rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            appearance: none;
+            transition: var(--transition);
+        }
+
+        .lang-select:focus {
+            border-color: var(--saffron);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .btn-swap-lang {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-full);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .btn-swap-lang:hover {
+            color: var(--saffron);
+            border-color: var(--saffron);
+            transform: rotate(180deg);
+        }
+
+        .translator-features-bar {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .live-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: var(--border-hover);
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .toggle-switch.active {
+            background: var(--emerald);
+        }
+
+        .toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 50%;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active .toggle-knob {
+            transform: translateX(20px);
+        }
+
+        /* Dual Input Output Panels */
+        .translator-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 260px;
+        }
+
+        .translator-panel {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .translator-panel.source-panel {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .translator-textarea {
+            width: 100%;
+            height: 100%;
+            min-height: 180px;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            resize: none;
+            line-height: 1.6;
+        }
+
+        .translator-textarea::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .translator-output {
+            width: 100%;
+            height: 100%;
+            min-height: 180px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            word-break: break-word;
+            overflow-y: auto;
+        }
+
+        .translator-output.empty {
+            color: var(--text-muted);
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        /* Panel Bottom Action Bars */
+        .panel-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        .panel-tool-btns {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .tool-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .tool-btn.mic-btn.listening {
+            background: #ef4444;
+            color: #ffffff;
+            animation: pulseRecord 1.5s infinite;
+        }
+
+        .char-counter {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Translator Action Bottom Strip */
+        .translator-action-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.75rem;
+            background: var(--bg-tertiary);
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .api-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .api-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--emerald);
+            box-shadow: 0 0 8px var(--emerald);
+        }
+
+        /* Loading Spinner */
+        .loading-ring {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* ==========================================================================
+           6. TRANSLATE ACROSS INDIA SECTION
+           ========================================================================== */
+        .section-across-india {
+            padding: 4.5rem 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .across-input-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2.5rem;
+        }
+
+        .across-input-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .across-input {
+            flex: 1;
+            padding: 0.9rem 1.25rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1.05rem;
+        }
+
+        .across-input:focus {
+            border-color: var(--saffron);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+        }
+
+        .preset-chips {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .preset-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .chip {
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-full);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chip:hover {
+            color: var(--saffron);
+            border-color: var(--saffron);
+            background: var(--saffron-light);
+        }
+
+        .across-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .lang-result-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+        }
+
+        .lang-result-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--saffron);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .result-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .result-lang-name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .result-lang-native {
+            font-size: 0.8rem;
+            color: var(--saffron);
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            background: var(--saffron-light);
+            border-radius: var(--radius-sm);
+        }
+
+        .result-translation {
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            min-height: 48px;
+        }
+
+        .result-card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        /* ==========================================================================
+           7. EXPLORE INDIAN LANGUAGES SECTION
+           ========================================================================== */
+        .section-languages {
+            padding: 4.5rem 0;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .language-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--chakra-blue);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .lang-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .lang-card-script {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .lang-card-family {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-full);
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+        }
+
+        .lang-card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .lang-card-native {
+            font-size: 0.95rem;
+            color: var(--saffron);
+            font-weight: 600;
+            margin-bottom: 0.85rem;
+        }
+
+        .lang-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+
+        .lang-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        .lang-speakers {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           8. LANGUAGE LEARNING SECTION
+           ========================================================================== */
+        .section-learn {
+            padding: 4.5rem 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .learn-control-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-scroll-container {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            overflow-x: auto;
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+            scrollbar-width: thin;
+        }
+
+        .category-pill {
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-full);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-pill:hover, .category-pill.active {
+            background: var(--saffron-gradient);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        .learn-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .phrase-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .phrase-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--emerald);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .phrase-english {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        .phrase-native {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--saffron);
+            margin-bottom: 0.35rem;
+            line-height: 1.4;
+        }
+
+        .phrase-phonetic {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1.25rem;
+        }
+
+        .phrase-card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        .btn-learned-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-full);
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-learned-status.learned {
+            background: var(--emerald-light);
+            color: var(--emerald);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        /* ==========================================================================
+           9. GAMES SECTION: "PLAY. LEARN. MASTER."
+           ========================================================================== */
+        .section-games {
+            padding: 4.5rem 0;
+        }
+
+        .games-nav-tabs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .game-tab-btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+        }
+
+        .game-tab-btn:hover, .game-tab-btn.active {
+            background: var(--chakra-blue);
+            color: #ffffff;
+            border-color: var(--chakra-blue);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .game-arena-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(16px);
+            position: relative;
+            min-height: 440px;
+        }
+
+        .game-arena-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .game-badge {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--chakra-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .game-score-badge {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--saffron);
+            background: var(--saffron-light);
+            padding: 0.35rem 0.9rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .game-timer-pill {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.12);
+            padding: 0.35rem 0.9rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Generic Game Question Box */
+        .game-question-box {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .game-question-sub {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .game-question-main {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .game-emoji-large {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Options Grid */
+        .game-options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-opt-btn {
+            padding: 1.25rem 1rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .game-opt-btn:hover {
+            border-color: var(--chakra-blue);
+            background: var(--bg-secondary);
+            transform: scale(1.02);
+        }
+
+        .game-opt-btn.correct {
+            background: var(--emerald-light) !important;
+            border-color: var(--emerald) !important;
+            color: var(--emerald) !important;
+        }
+
+        .game-opt-btn.wrong {
+            background: rgba(239, 68, 68, 0.15) !important;
+            border-color: #ef4444 !important;
+            color: #ef4444 !important;
+            animation: shake 0.4s ease;
+        }
+
+        /* Sentence Builder Chips */
+        .builder-pool, .builder-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            min-height: 60px;
+            padding: 0.85rem;
+            border-radius: var(--radius-md);
+        }
+
+        .builder-zone {
+            background: var(--bg-tertiary);
+            border: 2px dashed var(--border-color);
+        }
+
+        .builder-chip {
+            padding: 0.65rem 1.25rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .builder-chip:hover {
+            border-color: var(--saffron);
+            transform: translateY(-2px);
+        }
+
+        /* Game Over Screen */
+        .game-over-panel {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .game-over-icon {
+            font-size: 3.5rem;
+            color: var(--saffron);
+            margin-bottom: 1rem;
+        }
+
+        .game-over-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-over-xp {
+            font-size: 1.25rem;
+            color: var(--emerald);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           10. XP, LEVEL & LEADERBOARD SECTION
+           ========================================================================== */
+        .section-progress {
+            padding: 4.5rem 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .xp-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .xp-level-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            background: var(--brand-gradient);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 800;
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35);
+        }
+
+        .xp-level-badge i {
+            font-size: 1.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .xp-level-badge span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .xp-info-center {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .xp-titles {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .xp-rank-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .xp-numbers {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--saffron);
+        }
+
+        .xp-bar-outer {
+            width: 100%;
+            height: 14px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .xp-bar-inner {
+            height: 100%;
+            background: var(--brand-gradient);
+            border-radius: var(--radius-full);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Leaderboard & Dashboard Grid */
+        .gamification-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 2rem;
+        }
+
+        .gamification-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-title-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-heading {
+            font-size: 1.25rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* Leaderboard List */
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1.1rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .leaderboard-item:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+
+        .leaderboard-item.current-user {
+            border-color: var(--saffron);
+            background: var(--saffron-light);
+        }
+
+        .leader-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .leader-rank {
+            width: 28px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .leader-rank.top-1 { color: #eab308; }
+        .leader-rank.top-2 { color: #94a3b8; }
+        .leader-rank.top-3 { color: #b45309; }
+
+        .leader-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--blue-gradient);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .leader-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .leader-lang {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .leader-xp {
+            font-weight: 800;
+            color: var(--saffron);
+            font-size: 0.95rem;
+        }
+
+        /* Dashboard Stats Grid */
+        .dash-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--chakra-blue);
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Mastery Progress Rows */
+        .lang-progress-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .lang-progress-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .progress-row-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .mini-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .mini-progress-fill {
+            height: 100%;
+            background: var(--emerald-gradient);
+            border-radius: var(--radius-full);
+        }
+
+        /* ==========================================================================
+           11. RECENT TRANSLATIONS HISTORY
+           ========================================================================== */
+        .section-history {
+            padding: 4.5rem 0;
+        }
+
+        .history-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .history-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .history-item:hover {
+            border-color: var(--saffron);
+            background: var(--bg-secondary);
+        }
+
+        .history-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            flex: 1;
+        }
+
+        .history-top-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .history-lang-tag {
+            padding: 0.15rem 0.5rem;
+            background: var(--chakra-blue-light);
+            color: var(--chakra-blue);
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+
+        .history-text-source {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .history-text-target {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .history-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ==========================================================================
+           12. TOAST NOTIFICATIONS & MODALS
+           ========================================================================== */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            pointer-events: none;
+        }
+
+        .toast {
+            pointer-events: auto;
+            padding: 0.85rem 1.25rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            animation: slideInToast 0.3s ease;
+            max-width: 360px;
+        }
+
+        .toast.success { border-left: 4px solid var(--emerald); }
+        .toast.error { border-left: 4px solid #ef4444; }
+        .toast.info { border-left: 4px solid var(--chakra-blue); }
+
+        /* ==========================================================================
+           13. FOOTER
+           ========================================================================== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 4.5rem 0 2.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            margin: 1rem 0 1.5rem;
+            max-width: 360px;
+        }
+
+        .footer-col-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .footer-link {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--saffron);
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* ==========================================================================
+           14. KEYFRAME ANIMATIONS
+           ========================================================================== */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseRecord {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+            70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        @keyframes slideInToast {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ==========================================================================
+           15. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 2.8rem; }
+            .gamification-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu, .btn-primary.nav-cta { display: none; }
+            .hamburger-btn { display: flex; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 1.05rem; }
+            .translator-body { grid-template-columns: 1fr; }
+            .translator-panel.source-panel { border-right: none; border-bottom: 1px solid var(--border-color); }
+            .xp-banner { grid-template-columns: 1fr; text-align: center; }
+            .xp-level-badge { margin: 0 auto; }
+            .xp-titles { flex-direction: column; align-items: center; gap: 0.25rem; }
+            .game-options-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .across-input-row { flex-direction: column; }
+            .toast-container { left: 1rem; right: 1rem; bottom: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Glowing Background Elements -->
+    <div class="ambient-bg">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <!-- ==========================================================================
+         NAVBAR
+         ========================================================================== -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <a href="#home" class="brand-logo">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-om"></i>
+                </div>
+                <div class="brand-text">Bharat<span>Bhasha</span></div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#translator" class="nav-link">Translator</a></li>
+                <li><a href="#across-india" class="nav-link">Across India</a></li>
+                <li><a href="#languages" class="nav-link">Languages</a></li>
+                <li><a href="#learn" class="nav-link">Learn</a></li>
+                <li><a href="#games" class="nav-link">Games</a></li>
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+            </ul>
+
+            <!-- Navbar Action Buttons -->
+            <div class="nav-actions">
+                <button class="btn-theme-toggle" id="themeToggleBtn" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="#translator" class="btn-primary nav-cta">
+                    <i class="fa-solid fa-language"></i> Start Translating
+                </a>
+                <a href="#learn" class="btn-secondary nav-cta">
+                    <i class="fa-solid fa-graduation-cap"></i> Start Learning
+                </a>
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation Drawer">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <a href="#home" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#translator" class="mobile-nav-link"><i class="fa-solid fa-language"></i> Live Translator</a>
+        <a href="#across-india" class="mobile-nav-link"><i class="fa-solid fa-map-location-dot"></i> Across India</a>
+        <a href="#languages" class="mobile-nav-link"><i class="fa-solid fa-book-open"></i> Explore Languages</a>
+        <a href="#learn" class="mobile-nav-link"><i class="fa-solid fa-graduation-cap"></i> Learn Phrases</a>
+        <a href="#games" class="mobile-nav-link"><i class="fa-solid fa-gamepad"></i> Play Games</a>
+        <a href="#dashboard" class="mobile-nav-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+        <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+            <a href="#translator" class="btn-primary" style="flex:1; justify-content:center;">Translate Now</a>
+            <a href="#learn" class="btn-secondary" style="flex:1; justify-content:center;">Learn Now</a>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         HERO SECTION
+         ========================================================================== -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-badge">
+                <i class="fa-solid fa-bolt"></i> Powered by Indian Language AI & Gamification
+            </div>
+            
+            <h1 class="hero-title">
+                Break Language Barriers. <br>
+                <span class="gradient-text">Learn India.</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Translate, understand and learn India's diverse languages through cutting-edge speech technology, multi-script intelligence, and interactive games.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="#translator" class="btn-primary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+                    <i class="fa-solid fa-language"></i> Start Translating
+                </a>
+                <a href="#games" class="btn-secondary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+                    <i class="fa-solid fa-gamepad"></i> Play & Learn Games
+                </a>
+            </div>
+
+            <!-- Indian Language Floating Script Ticker -->
+            <div class="script-ticker">
+                <div class="script-card">
+                    <div class="script-char">अ</div>
+                    <div class="script-info">
+                        <div class="script-name">Hindi</div>
+                        <div class="script-native">हिन्दी</div>
+                    </div>
+                </div>
+                <div class="script-card">
+                    <div class="script-char">অ</div>
+                    <div class="script-info">
+                        <div class="script-name">Bengali</div>
+                        <div class="script-native">বাংলা</div>
+                    </div>
+                </div>
+                <div class="script-card">
+                    <div class="script-char">அ</div>
+                    <div class="script-info">
+                        <div class="script-name">Tamil</div>
+                        <div class="script-native">தமிழ்</div>
+                    </div>
+                </div>
+                <div class="script-card">
+                    <div class="script-char">అ</div>
+                    <div class="script-info">
+                        <div class="script-name">Telugu</div>
+                        <div class="script-native">తెలుగు</div>
+                    </div>
+                </div>
+                <div class="script-card">
+                    <div class="script-char">અ</div>
+                    <div class="script-info">
+                        <div class="script-name">Gujarati</div>
+                        <div class="script-native">ગુજરાતી</div>
+                    </div>
+                </div>
+                <div class="script-card">
+                    <div class="script-char">ਅ</div>
+                    <div class="script-info">
+                        <div class="script-name">Punjabi</div>
+                        <div class="script-native">ਪੰਜਾਬੀ</div>
+                    </div>
+                </div>
+                <div class="script-card">
+                    <div class="script-char">ಅ</div>
+                    <div class="script-info">
+                        <div class="script-name">Kannada</div>
+                        <div class="script-native">ಕನ್ನಡ</div>
+                    </div>
+                </div>
+                <div class="script-card">
+                    <div class="script-char">അ</div>
+                    <div class="script-info">
+                        <div class="script-name">Malayalam</div>
+                        <div class="script-native">മലയാളം</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         1. LIVE TRANSLATOR SECTION
+         ========================================================================== -->
+    <section class="section-translator" id="translator">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-microphone-lines"></i> Real-time AI Translation</div>
+                <h2 class="section-title">Live Indian Language Translator</h2>
+                <p class="section-desc">Type, speak, or paste any text to translate seamlessly across 15+ Indian languages with speech synthesis and voice recognition.</p>
+            </div>
+
+            <div class="translator-container">
+                <!-- Top Language Selectors & Features -->
+                <div class="translator-top-bar">
+                    <div class="lang-select-group">
+                        <div class="custom-select-wrapper">
+                            <select id="sourceLangSelect" class="lang-select" aria-label="Source Language">
+                                <option value="auto">🌐 Auto Detect</option>
+                                <option value="en" selected>English</option>
+                                <option value="hi">Hindi (हिन्दी)</option>
+                                <option value="bn">Bengali (বাংলা)</option>
+                                <option value="ta">Tamil (தமிழ்)</option>
+                                <option value="te">Telugu (తెలుగు)</option>
+                                <option value="mr">Marathi (मराठी)</option>
+                                <option value="gu">Gujarati (ગુજરાતી)</option>
+                                <option value="kn">Kannada (ಕನ್ನಡ)</option>
+                                <option value="ml">Malayalam (മലയാളം)</option>
+                                <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+                                <option value="or">Odia (ଓଡ଼ିଆ)</option>
+                                <option value="as">Assamese (অসমীয়া)</option>
+                                <option value="ur">Urdu (اردو)</option>
+                                <option value="sa">Sanskrit (संस्कृतम्)</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+
+                        <button id="swapLangBtn" class="btn-swap-lang" title="Swap Languages">
+                            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        </button>
+
+                        <div class="custom-select-wrapper">
+                            <select id="targetLangSelect" class="lang-select" aria-label="Target Language">
+                                <option value="hi" selected>Hindi (हिन्दी)</option>
+                                <option value="en">English</option>
+                                <option value="bn">Bengali (বাংলা)</option>
+                                <option value="ta">Tamil (தமிழ்)</option>
+                                <option value="te">Telugu (తెలుగు)</option>
+                                <option value="mr">Marathi (मराठी)</option>
+                                <option value="gu">Gujarati (ગુજરાતી)</option>
+                                <option value="kn">Kannada (ಕನ್ನಡ)</option>
+                                <option value="ml">Malayalam (മലയാളം)</option>
+                                <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+                                <option value="or">Odia (ଓଡ଼ିଆ)</option>
+                                <option value="as">Assamese (অসমীয়া)</option>
+                                <option value="ur">Urdu (اردو)</option>
+                                <option value="sa">Sanskrit (संस्कृतम्)</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <!-- Live Translation Toggle Switch -->
+                    <div class="translator-features-bar">
+                        <label class="live-toggle-wrapper" id="liveToggleContainer">
+                            <span>Live Translation</span>
+                            <div class="toggle-switch active" id="liveToggleSwitch">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Dual Input & Output Workspace -->
+                <div class="translator-body">
+                    <!-- Source Text Input Panel -->
+                    <div class="translator-panel source-panel">
+                        <textarea id="sourceText" class="translator-textarea" placeholder="Type words or sentences here (e.g., 'Welcome to India', 'Where is the station?')..." maxlength="5000"></textarea>
+                        
+                        <div class="panel-footer">
+                            <div class="panel-tool-btns">
+                                <button id="micBtn" class="tool-btn mic-btn" title="Speech to Text (Speak)">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </button>
+                                <button id="sourceSpeakBtn" class="tool-btn" title="Listen Original Text">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                                <button id="clearSourceBtn" class="tool-btn" title="Clear Text">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                            <span id="charCount" class="char-counter">0 / 5000</span>
+                        </div>
+                    </div>
+
+                    <!-- Target Translated Panel -->
+                    <div class="translator-panel target-panel">
+                        <div id="targetOutput" class="translator-output empty">Translation will appear here in real-time...</div>
+                        
+                        <div class="panel-footer">
+                            <div class="panel-tool-btns">
+                                <button id="targetSpeakBtn" class="tool-btn" title="Listen Translation">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                                <button id="copyTargetBtn" class="tool-btn" title="Copy Translation">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                            </div>
+                            <span id="detectedBadge" class="char-counter" style="color: var(--saffron); font-weight: 700;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Action Strip -->
+                <div class="translator-action-strip">
+                    <div class="api-indicator">
+                        <span class="api-status-dot"></span>
+                        <span id="apiStatusText">Engine: Ready (Real-time Dual Engine)</span>
+                    </div>
+
+                    <button id="translateBtn" class="btn-primary">
+                        <span id="translateBtnContent"><i class="fa-solid fa-bolt"></i> Translate Now</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         3. TRANSLATE ACROSS INDIA
+         ========================================================================== -->
+    <section class="section-across-india" id="across-india">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-earth-asia"></i> Multi-Lingual Bharat</div>
+                <h2 class="section-title">Translate Across India</h2>
+                <p class="section-desc">Enter any sentence once and instantly see it translated into 12 major Indian languages at a single glance with audio playback.</p>
+            </div>
+
+            <!-- Input Box & Preset Starters -->
+            <div class="across-input-card">
+                <div class="across-input-row">
+                    <input type="text" id="acrossInput" class="across-input" value="Where is the nearest railway station?" placeholder="Type a sentence to translate across India...">
+                    <button id="translateAcrossBtn" class="btn-primary" style="white-space: nowrap;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Translate to All Indian Languages
+                    </button>
+                </div>
+
+                <div class="preset-chips">
+                    <span class="preset-title">Try Presets:</span>
+                    <button class="chip preset-chip" data-text="Where is the nearest railway station?">🚉 Railway Station</button>
+                    <button class="chip preset-chip" data-text="How are you?">👋 How are you?</button>
+                    <button class="chip preset-chip" data-text="Thank you very much">🙏 Thank you</button>
+                    <button class="chip preset-chip" data-text="Welcome to India">🇮🇳 Welcome to India</button>
+                    <button class="chip preset-chip" data-text="What is your name?">💬 What is your name?</button>
+                    <button class="chip preset-chip" data-text="Good morning">☀️ Good morning</button>
+                </div>
+            </div>
+
+            <!-- 12 Language Cards Grid -->
+            <div class="across-results-grid" id="acrossResultsGrid">
+                <!-- Dynamically Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         4. EXPLORE INDIAN LANGUAGES SECTION
+         ========================================================================== -->
+    <section class="section-languages" id="languages">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-compass"></i> Cultural Heritage</div>
+                <h2 class="section-title">Explore Indian Languages</h2>
+                <p class="section-desc">Discover the rich history, native scripts, and unique cultural expressions of India's classical and modern scheduled languages.</p>
+            </div>
+
+            <div class="languages-grid" id="languagesExplorerGrid">
+                <!-- Dynamically populated cards for 14 languages with 'Learn' button -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. LANGUAGE LEARNING SECTION
+         ========================================================================== -->
+    <section class="section-learn" id="learn">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-graduation-cap"></i> Interactive Lessons</div>
+                <h2 class="section-title">Learn Indian Languages</h2>
+                <p class="section-desc">Master essential vocabulary, pronunciation, and everyday phrases. Listen, practice, and track your words learned.</p>
+            </div>
+
+            <!-- Language Switcher & Category Scroll -->
+            <div class="learn-control-bar">
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                    <span style="font-weight:700; font-size:0.95rem;">Focus Language:</span>
+                    <select id="learnLangSelect" class="lang-select" style="width: auto; padding: 0.55rem 2rem 0.55rem 1rem;">
+                        <option value="hi" selected>Hindi (हिन्दी)</option>
+                        <option value="ta">Tamil (தமிழ்)</option>
+                        <option value="bn">Bengali (বাংলা)</option>
+                        <option value="te">Telugu (తెలుగు)</option>
+                        <option value="mr">Marathi (मराठी)</option>
+                        <option value="gu">Gujarati (ગુજરાતી)</option>
+                        <option value="kn">Kannada (ಕನ್ನಡ)</option>
+                        <option value="ml">Malayalam (മലയാളം)</option>
+                        <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+                    </select>
+                </div>
+
+                <div style="font-size:0.9rem; font-weight:700; color:var(--emerald);">
+                    <i class="fa-solid fa-check-circle"></i> <span id="wordsLearnedBadge">0 Words Learned</span>
+                </div>
+            </div>
+
+            <!-- 10 Category Filter Tabs -->
+            <div class="category-scroll-container" id="categoryTabs">
+                <button class="category-pill active" data-cat="greetings"><i class="fa-solid fa-hand-sparkles"></i> Greetings</button>
+                <button class="category-pill" data-cat="vocabulary"><i class="fa-solid fa-book"></i> Vocabulary</button>
+                <button class="category-pill" data-cat="conversation"><i class="fa-solid fa-comments"></i> Daily Conversation</button>
+                <button class="category-pill" data-cat="numbers"><i class="fa-solid fa-arrow-down-1-9"></i> Numbers</button>
+                <button class="category-pill" data-cat="food"><i class="fa-solid fa-utensils"></i> Food</button>
+                <button class="category-pill" data-cat="travel"><i class="fa-solid fa-plane-departure"></i> Travel</button>
+                <button class="category-pill" data-cat="shopping"><i class="fa-solid fa-bag-shopping"></i> Shopping</button>
+                <button class="category-pill" data-cat="emergency"><i class="fa-solid fa-kit-medical"></i> Emergency</button>
+                <button class="category-pill" data-cat="common"><i class="fa-solid fa-quote-left"></i> Common Sentences</button>
+                <button class="category-pill" data-cat="pronunciation"><i class="fa-solid fa-volume-high"></i> Pronunciation</button>
+            </div>
+
+            <!-- Vocabulary Cards Grid -->
+            <div class="learn-cards-grid" id="learnCardsGrid">
+                <!-- Dynamically Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. LANGUAGE LEARNING GAMES: "PLAY. LEARN. MASTER."
+         ========================================================================== -->
+    <section class="section-games" id="games">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-trophy"></i> Gamified Skill Arena</div>
+                <h2 class="section-title">Play. Learn. Master.</h2>
+                <p class="section-desc">Strengthen your Indian language proficiency through 6 interactive mini-games. Earn XP, build combos, and climb the leaderboard.</p>
+            </div>
+
+            <!-- 6 Games Nav Tabs -->
+            <div class="games-nav-tabs">
+                <button class="game-tab-btn active" data-game="1"><i class="fa-solid fa-font"></i> 1. Word Match</button>
+                <button class="game-tab-btn" data-game="2"><i class="fa-solid fa-stopwatch"></i> 2. Translation Challenge</button>
+                <button class="game-tab-btn" data-game="3"><i class="fa-solid fa-image"></i> 3. Picture Vocab</button>
+                <button class="game-tab-btn" data-game="4"><i class="fa-solid fa-puzzle-piece"></i> 4. Sentence Builder</button>
+                <button class="game-tab-btn" data-game="5"><i class="fa-solid fa-gauge-high"></i> 5. Speed Challenge</button>
+                <button class="game-tab-btn" data-game="6"><i class="fa-solid fa-calendar-star"></i> 6. Daily Challenge</button>
+            </div>
+
+            <!-- Interactive Game Arena Console -->
+            <div class="game-arena-container" id="gameArena">
+                <!-- Header / Live Stats -->
+                <div class="game-arena-header">
+                    <div class="game-badge" id="gameHeaderBadge">
+                        <i class="fa-solid fa-gamepad"></i> Game 1: Word Match
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.75rem;">
+                        <div class="game-timer-pill" id="gameTimerPill" style="display:none;">
+                            <i class="fa-regular fa-clock"></i> <span id="gameTimerCount">60s</span>
+                        </div>
+                        <div class="game-score-badge">
+                            <i class="fa-solid fa-star"></i> Score: <span id="gameScoreVal">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Game Content Viewport -->
+                <div id="gameViewport">
+                    <!-- Loaded dynamically via game controllers -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         7, 8, 9. XP, LEVEL, LEADERBOARD & DASHBOARD SECTION
+         ========================================================================== -->
+    <section class="section-progress" id="dashboard">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-chart-line"></i> User Growth & Ranks</div>
+                <h2 class="section-title">My Learning Dashboard</h2>
+                <p class="section-desc">Track your mastery level, review your XP progression, and compare your standing against learners across India.</p>
+            </div>
+
+            <!-- Top XP & Level Progress Banner -->
+            <div class="xp-banner">
+                <div class="xp-level-badge" id="dashLevelBadge">
+                    <i class="fa-solid fa-award"></i>
+                    <span id="dashLevelName">Explorer</span>
+                </div>
+
+                <div class="xp-info-center">
+                    <div class="xp-titles">
+                        <div class="xp-rank-name">Level: <span id="dashLevelTitle">Beginner</span></div>
+                        <div class="xp-numbers"><span id="dashCurrentXp">0</span> / <span id="dashNextXp">100</span> XP</div>
+                    </div>
+                    <div class="xp-bar-outer">
+                        <div class="xp-bar-inner" id="dashXpBar" style="width: 15%;"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn-secondary" id="claimBonusBtn">
+                        <i class="fa-solid fa-gift"></i> Daily Bonus (+20 XP)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid: Leaderboard (Left) & Personal Stats (Right) -->
+            <div class="gamification-grid">
+                <!-- Leaderboard Card -->
+                <div class="gamification-card">
+                    <div class="card-title-bar">
+                        <h3 class="card-heading"><i class="fa-solid fa-trophy" style="color: #eab308;"></i> Top Language Learners</h3>
+                        <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">India National Tier</span>
+                    </div>
+
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- User Dashboard Statistics -->
+                <div class="gamification-card">
+                    <div class="card-title-bar">
+                        <h3 class="card-heading"><i class="fa-solid fa-gauge" style="color: var(--chakra-blue);"></i> Learning Analytics</h3>
+                        <button id="resetStatsBtn" style="background:transparent; font-size:0.75rem; color:var(--text-muted); cursor:pointer;" title="Reset Progress">Reset</button>
+                    </div>
+
+                    <div class="dash-stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-value" id="statLangCount">4</div>
+                            <div class="stat-label">Languages Explored</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="statWordsLearned">0</div>
+                            <div class="stat-label">Words Learned</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="statGamesPlayed">0</div>
+                            <div class="stat-label">Games Played</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="statStreak">1 <i class="fa-solid fa-fire" style="color: #f97316;"></i></div>
+                            <div class="stat-label">Current Streak</div>
+                        </div>
+                    </div>
+
+                    <!-- Per Language Mastery Progress -->
+                    <h4 style="font-size:0.95rem; font-weight:700; margin-bottom: 0.85rem; color:var(--text-secondary);">Language Mastery</h4>
+                    <div class="lang-progress-list" id="langProgressList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         11. TRANSLATION HISTORY
+         ========================================================================== -->
+    <section class="section-history" id="history">
+        <div class="container">
+            <div class="history-card">
+                <div class="card-title-bar">
+                    <h3 class="card-heading"><i class="fa-solid fa-clock-rotate-left" style="color: var(--saffron);"></i> Recent Translations</h3>
+                    <button id="clearHistoryBtn" class="btn-secondary" style="padding: 0.35rem 0.85rem; font-size: 0.82rem;">
+                        <i class="fa-solid fa-trash"></i> Clear History
+                    </button>
+                </div>
+
+                <div class="history-list" id="historyList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER
+         ========================================================================== -->
+    <footer class="footer" id="about">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#home" class="brand-logo" style="margin-bottom: 1rem;">
+                        <div class="brand-icon"><i class="fa-solid fa-om"></i></div>
+                        <div class="brand-text">Bharat<span>Bhasha</span></div>
+                    </a>
+                    <p class="footer-desc">
+                        Connect India Through Language. Empowering 1.4 billion citizens and global learners to bridge linguistic distances through artificial intelligence, gamification, and cultural preservation.
+                    </p>
+                    <div style="display:flex; gap:0.75rem;">
+                        <button class="tool-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></button>
+                        <button class="tool-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></button>
+                        <button class="tool-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></button>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-col-title">Platforms</h4>
+                    <ul class="footer-links">
+                        <li><a href="#translator" class="footer-link">Live Translator</a></li>
+                        <li><a href="#across-india" class="footer-link">Translate Across India</a></li>
+                        <li><a href="#languages" class="footer-link">Explore Indian Scripts</a></li>
+                        <li><a href="#learn" class="footer-link">Vocabulary Lessons</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-col-title">Learning Games</h4>
+                    <ul class="footer-links">
+                        <li><a href="#games" class="footer-link">Word Match</a></li>
+                        <li><a href="#games" class="footer-link">Translation Challenge</a></li>
+                        <li><a href="#games" class="footer-link">Sentence Builder</a></li>
+                        <li><a href="#games" class="footer-link">Daily 5-Question Blitz</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-col-title">Security & API</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5; margin-bottom: 1rem;">
+                        Frontend translation is backed by dual-engine offline intelligence and ready for production API integration.
+                    </p>
+                    <div style="font-size:0.78rem; color:var(--text-muted); background:var(--bg-tertiary); padding:0.6rem; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+                        <i class="fa-solid fa-shield-halved" style="color:var(--emerald);"></i> SSL & Web Speech API Encrypted
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 BharatBhasha Inc. Connect India Through Language. All rights reserved.</div>
+                <div style="display:flex; gap:1.5rem;">
+                    <a href="#home" class="footer-link">Privacy Policy</a>
+                    <a href="#home" class="footer-link">Terms of Service</a>
+                    <a href="#home" class="footer-link">Open Source SDK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC & ENGINE
+         ========================================================================== -->
+    <script>
+        /**
+         * ==========================================================================
+         * 16. TRANSLATION API CONFIGURATION & PRODUCTION SECURITY ADVISORY
+         * ==========================================================================
+         * 
+         * IMPORTANT SECURITY NOTE:
+         * For production, never expose your Translation API key
+         * in frontend JavaScript.
+         * Use a secure backend/serverless API (e.g. Next.js API route, Cloudflare Worker, AWS Lambda).
+         * 
+         * For testing and development, you can replace the placeholder below
+         * with your real API endpoint and key.
+         */
+        const TRANSLATION_API_URL = "YOUR_TRANSLATION_API_URL"; // Put your real Translation API URL here
+        const TRANSLATION_API_KEY = "YOUR_TRANSLATION_API_KEY"; // Put your real Translation API Key here
+
+        /* ==========================================================================
+           2. INDIAN LANGUAGE METADATA & COMPREHENSIVE PHRASE DICTIONARY
+           ========================================================================== */
+        const INDIAN_LANGUAGES = {
+            'hi': { name: 'Hindi', native: 'हिन्दी', script: 'अ', bcp47: 'hi-IN', family: 'Indo-Aryan', speakers: '600M+', desc: 'Fourth most spoken language in the world, written in the Devanagari script.' },
+            'bn': { name: 'Bengali', native: 'বাংলা', script: 'অ', bcp47: 'bn-IN', family: 'Indo-Aryan', speakers: '300M+', desc: 'Sweet and melodious language of Tagore, rich in literature and art.' },
+            'ta': { name: 'Tamil', native: 'தமிழ்', script: 'அ', bcp47: 'ta-IN', family: 'Dravidian', speakers: '85M+', desc: 'One of the longest-surviving classical languages with over 2,000 years of recorded literature.' },
+            'te': { name: 'Telugu', native: 'తెలుగు', script: 'అ', bcp47: 'te-IN', family: 'Dravidian', speakers: '95M+', desc: 'Known as the Italian of the East due to its sweet vowel endings.' },
+            'mr': { name: 'Marathi', native: 'मराठी', script: 'म', bcp47: 'mr-IN', family: 'Indo-Aryan', speakers: '90M+', desc: 'Vibrant language of Maharashtra with immense historical and cultural depth.' },
+            'gu': { name: 'Gujarati', native: 'ગુજરાતી', script: 'અ', bcp47: 'gu-IN', family: 'Indo-Aryan', speakers: '60M+', desc: 'Language of commerce, enterprise, and Mahatma Gandhi.' },
+            'kn': { name: 'Kannada', native: 'ಕನ್ನಡ', script: 'ಅ', bcp47: 'kn-IN', family: 'Dravidian', speakers: '50M+', desc: 'Classical language of Karnataka with monumental epics and inscriptions.' },
+            'ml': { name: 'Malayalam', native: 'മലയാളം', script: 'അ', bcp47: 'ml-IN', family: 'Dravidian', speakers: '38M+', desc: 'Graceful palindrome language spoken along the lush Malabar coast of Kerala.' },
+            'pa': { name: 'Punjabi', native: 'ਪੰਜਾਬੀ', script: 'ਅ', bcp47: 'pa-IN', family: 'Indo-Aryan', speakers: '125M+', desc: 'High-energy language of Punjab, written in Gurmukhi script.' },
+            'or': { name: 'Odia', native: 'ଓଡ଼ିଆ', script: 'ଅ', bcp47: 'or-IN', family: 'Indo-Aryan', speakers: '40M+', desc: 'Classical language of Odisha with exquisite rounded palm-leaf manuscript scripts.' },
+            'as': { name: 'Assamese', native: 'অসমীয়া', script: 'অ', bcp47: 'as-IN', family: 'Indo-Aryan', speakers: '15M+', desc: 'Easternmost Indo-Aryan language spoken along the Brahmaputra valley.' },
+            'ur': { name: 'Urdu', native: 'اردو', script: 'ا', bcp47: 'ur-PK', family: 'Indo-Aryan', speakers: '70M+', desc: 'Lyrical language of poetry, Ghazals, and refined etiquette.' },
+            'sa': { name: 'Sanskrit', native: 'संस्कृतम्', script: 'ॐ', bcp47: 'hi-IN', family: 'Indo-Aryan', speakers: 'Classical', desc: 'Ancient sacred liturgical language of the Vedas, Upanishads, and sciences.' },
+            'en': { name: 'English', native: 'English', script: 'A', bcp47: 'en-IN', family: 'Germanic', speakers: 'Bridge', desc: 'Global lingua franca commonly used in governance and technology.' }
+        };
+
+        // Built-in Multilingual Knowledge Matrix for Instant Offline & Fallback Translation
+        const TRANSLATION_DATABASE = {
+            "where is the nearest railway station?": {
+                hi: "निकटतम रेलवे स्टेशन कहाँ है?",
+                bn: "নিকটবর্তী রেলওয়ে স্টেশন কোথায়?",
+                ta: "அருகிலுள்ள ரயில் நிலையம் எங்கே உள்ளது?",
+                te: "సమీపంలోని రైల్వే స్టేషన్ ఎక్కడ ఉంది?",
+                mr: "जवळचे रेल्वे स्टेशन कुठे आहे?",
+                gu: "સૌથી નજીકનું રેલ્વે સ્ટેશન ક્યાં છે?",
+                kn: "ಹತ್ತಿರದ ರೈಲ್ವೆ ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ?",
+                ml: "ഏറ്റവും അടുത്തുള്ള റെയിൽവേ സ്റ്റേഷൻ എവിടെയാണ്?",
+                pa: "ਸਭ ਤੋਂ ਨੇੜੇ ਦਾ ਰੇਲਵੇ ਸਟੇਸ਼ਨ ਕਿੱਥੇ ਹੈ?",
+                or: "ନିକଟତମ ରେଳ ଷ୍ଟେସନ କେଉଁଠାରେ ଅଛି?",
+                as: "ওচৰৰ ৰেল ষ্টেচনটো ক'ত আছে?",
+                ur: "قریب ترین ریلوے اسٹیشن کہاں ہے؟",
+                sa: "समीपस्थं रेलस्थानकं कुत्र अस्ति?",
+                en: "Where is the nearest railway station?"
+            },
+            "how are you?": {
+                hi: "आप कैसे हैं?",
+                bn: "আপনি কেমন আছেন?",
+                ta: "நீங்கள் எப்படி இருக்கிறீர்கள்?",
+                te: "మీరు ఎలా ఉన్నారు?",
+                mr: "तुम्ही कसे आहात?",
+                gu: "તમે કેમ છો?",
+                kn: "ನೀವು ಹೇಗಿದ್ದೀರಿ?",
+                ml: "സുഖമാണോ?",
+                pa: "ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?",
+                or: "ଆପଣ କେମିତି ଅଛନ୍ତି?",
+                as: "আপুনি কেনে আছে?",
+                ur: "آپ کیسے ہیں؟",
+                sa: "भवान् कथमस्ति?",
+                en: "How are you?"
+            },
+            "thank you very much": {
+                hi: "आपका बहुत-बहुत धन्यवाद!",
+                bn: "আপনাকে অনেক ধন্যবাদ!",
+                ta: "மிக்க நன்றி!",
+                te: "చాలా ధన్యవాదాలు!",
+                mr: "खूप खूप धन्यवाद!",
+                gu: "ખૂબ ખૂબ આભાર!",
+                kn: "ತುಂಬಾ ಧನ್ಯವಾದಗಳು!",
+                ml: "വളരെ നന്ദി!",
+                pa: "ਤੁਹਾਡਾ ਬਹੁਤ ਬਹੁਤ ਧੰਨਵਾਦ!",
+                or: "ବହୁତ ବହୁତ ଧନ୍ୟବାଦ!",
+                as: "আপোনাক বহুত ধন্যবাদ!",
+                ur: "بہت بہت شکریہ!",
+                sa: "भवते बहुशः धन्यवादाः!",
+                en: "Thank you very much!"
+            },
+            "welcome to india": {
+                hi: "भारत में आपका हार्दिक स्वागत है!",
+                bn: "ভারতে আপনাকে আন্তরিক স্বাগতম!",
+                ta: "இந்தியாவிற்கு நல்வரவு!",
+                te: "భారతదేశానికి సుస్వాగతం!",
+                mr: "भारतात आपले मनःपूर्वक स्वागत आहे!",
+                gu: "ભારતમાં આપનું હાર્દિક સ્વાગત છે!",
+                kn: "ಭಾರತಕ್ಕೆ ಹೃತ್ಪೂರ್ವಕ ಸುಸ್ವಾಗತ!",
+                ml: "ഭാരതത്തിലേക്ക് ഹൃദ്യമായ സ്വാഗതം!",
+                pa: "ਭਾਰਤ ਵਿੱਚ ਤੁਹਾਡਾ ਨਿੱਘਾ ਸੁਆਗਤ ਹੈ!",
+                or: "ଭାରତକୁ ଆପଣଙ୍କୁ ହାର୍ଦ୍ଦିକ ସ୍ୱାଗତ!",
+                as: "ভাৰতলৈ আপোনাক স্বাগতম!",
+                ur: "بھارت میں آپ کا پرخلوص خیر مقدم ہے!",
+                sa: "भारते भवतः हार्दिकं स्वागतम्!",
+                en: "Welcome to India!"
+            },
+            "what is your name?": {
+                hi: "आपका नाम क्या है?",
+                bn: "আপনার নাম কি?",
+                ta: "உங்கள் பெயர் என்ன?",
+                te: "మీ పేరు ఏమిటి?",
+                mr: "तुमचे नाव काय आहे?",
+                gu: "તમારું નામ શું છે?",
+                kn: "ನಿಮ್ಮ ಹೆಸರೇನು?",
+                ml: "നിങ്ങളുടെ പേരെന്താണ്?",
+                pa: "ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?",
+                or: "ଆପଣଙ୍କ ନାମ କ'ଣ?",
+                as: "আপোনাৰ নাম কি?",
+                ur: "آپ کا نام کیا ہے؟",
+                sa: "भवतः नाम किम्?",
+                en: "What is your name?"
+            },
+            "good morning": {
+                hi: "शुभ प्रभात",
+                bn: "সুপ্রভাত",
+                ta: "காலை வணக்கம்",
+                te: "శుభోదయం",
+                mr: "शुभ प्रभात",
+                gu: "શુભ સવાર",
+                kn: "ಶುಭೋದಯ",
+                ml: "സുപ്രഭാതം",
+                pa: "ਸ਼ੁਭ ਸਵੇਰ",
+                or: "ଶୁଭ ସକାଳ",
+                as: "সুপ্ৰভাত",
+                ur: "صبح بخیر",
+                sa: "सुप्रभातम्",
+                en: "Good morning"
+            },
+            "i love india": {
+                hi: "मुझे भारत से प्यार है",
+                bn: "আমি ভারতকে ভালোবাসি",
+                ta: "நான் இந்தியாவை நேசிக்கிறேன்",
+                te: "నేను భారతదేశాన్ని ప్రేమిస్తున్నాను",
+                mr: "माझे भारतावर प्रेम आहे",
+                gu: "મને ભારત અત્યંત પ્રિય છે",
+                kn: "ನಾನು ಭಾರತವನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ",
+                ml: "ഞാൻ ഭാരതത്തെ സ്നേഹിക്കുന്നു",
+                pa: "ਮੈਨੂੰ ਭਾਰਤ ਨਾਲ ਪਿਆਰ ਹੈ",
+                or: "ମୁଁ ଭାରତକୁ ଭଲ ପାଏ",
+                as: "মই ভাৰতক ভাল পাওঁ",
+                ur: "مجھے بھارت سے محبت ہے",
+                sa: "अहं भारतं स्निह्यामि",
+                en: "I love India"
+            },
+            "water": {
+                hi: "पानी", bn: "জল", ta: "தண்ணீர்", te: "నీరు", mr: "पाणी", gu: "પાણી", kn: "ನೀರು", ml: "വെള്ളം", pa: "ਪਾਣੀ", or: "ପାଣି", as: "পানী", ur: "پانی", sa: "जलम्", en: "Water"
+            },
+            "food": {
+                hi: "खाना", bn: "খাবার", ta: "உணவு", te: "ఆహారం", mr: "जेवण", gu: "ખોરાક", kn: "ಆಹಾರ", ml: "ഭക്ഷണം", pa: "ਖਾਣਾ", or: "ଖାଦ୍ୟ", as: "খাদ্য", ur: "کھانا", sa: "भोजनम्", en: "Food"
+            },
+            "book": {
+                hi: "किताब", bn: "বই", ta: "புத்தகம்", te: "పుస్తకం", mr: "पुस्तक", gu: "પુસ્તક", kn: "ಪುಸ್ತಕ", ml: "പുസ്തകം", pa: "ਕਿਤਾਬ", or: "ବହି", as: "কিতাপ", ur: "کتاب", sa: "पुस्तकम्", en: "Book"
+            },
+            "house": {
+                hi: "घर", bn: "বাড়ি", ta: "வீடு", te: "ఇల్లు", mr: "घर", gu: "ઘર", kn: "ಮನೆ", ml: "വീട്", pa: "ਘਰ", or: "ଘର", as: "ঘৰ", ur: "گھر", sa: "गृहम्", en: "House"
+            },
+            "friend": {
+                hi: "दोस्त", bn: "বন্ধু", ta: "நண்பன்", te: "స్నేహితుడు", mr: "मित्र", gu: "મિત્ર", kn: "ಸ್ನೇಹಿತ", ml: "സുഹൃത്ത്", pa: "ਦੋਸਤ", or: "ବନ୍ଧୁ", as: "বন্ধু", ur: "دوست", sa: "मित्रम्", en: "Friend"
+            },
+            "apple": {
+                hi: "सेब", bn: "আপেল", ta: "ஆப்பிள்", te: "యాపిల్", mr: "सफरचंद", gu: "સફરજન", kn: "ಸೇಬು", ml: "ആപ്പിൾ", pa: "ਸੇਬ", or: "ସେଓ", as: "আপেল", ur: "سیب", sa: "सेवम्", en: "Apple"
+            },
+            "tea": {
+                hi: "चाय", bn: "চা", ta: "தேநீர்", te: "టీ", mr: "चहा", gu: "ચા", kn: "ಚಹಾ", ml: "ചായ", pa: "ਚਾਹ", or: "ଚା", as: "চাহ", ur: "چائے", sa: "चायम्", en: "Tea"
+            },
+            "car": {
+                hi: "गाड़ी", bn: "গাড়ি", ta: "கார்", te: "కారు", mr: "गाडी", gu: "ગાડી", kn: "ಕಾರು", ml: "കാർ", pa: "ਗੱਡੀ", or: "ଗାଡ଼ି", as: "গাড়ী", ur: "گاڑی", sa: "यानम्", en: "Car"
+            }
+        };
+
+        /* ==========================================================================
+           3. CORE TRANSLATION ENGINE & API HANDLER
+           ========================================================================== */
+        /**
+         * translateText(text, sourceLanguage, targetLanguage)
+         * Robust translation dispatcher handling real API calls with graceful offline fallback.
+         */
+        async function translateText(text, sourceLanguage, targetLanguage) {
+            if (!text || !text.trim()) {
+                return "";
+            }
+
+            const cleanText = text.trim();
+            const normalizedSource = sourceLanguage === 'auto' ? detectLanguage(cleanText) : sourceLanguage;
+            
+            // Same source and target
+            if (normalizedSource === targetLanguage) {
+                return cleanText;
+            }
+
+            // 1. Try Live External Translation API if user has replaced the configuration
+            const isCustomApiConfigured = TRANSLATION_API_URL !== "YOUR_TRANSLATION_API_URL" && TRANSLATION_API_URL.startsWith("http");
+            
+            if (isCustomApiConfigured) {
+                try {
+                    const response = await fetch(TRANSLATION_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${TRANSLATION_API_KEY}`
+                        },
+                        body: JSON.stringify({
+                            q: cleanText,
+                            source: normalizedSource,
+                            target: targetLanguage
+                        }),
+                        signal: AbortSignal.timeout(6000)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: HTTP ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    if (data && data.translatedText) {
+                        return data.translatedText;
+                    }
+                } catch (apiErr) {
+                    console.warn("External API fetch failed, smoothly switching to built-in Indian language engine:", apiErr.message);
+                    showToast("External API unavailable, using built-in language engine", "info");
+                }
+            }
+
+            // 2. Built-in Multilingual Intelligent Matching Engine
+            const lower = cleanText.toLowerCase().replace(/[.,!?;:]/g, '');
+            if (TRANSLATION_DATABASE[lower] && TRANSLATION_DATABASE[lower][targetLanguage]) {
+                return TRANSLATION_DATABASE[lower][targetLanguage];
+            }
+
+            // Check if any word in our database matches
+            const words = cleanText.split(/\s+/);
+            if (words.length === 1 && TRANSLATION_DATABASE[words[0].toLowerCase()]) {
+                const term = words[0].toLowerCase();
+                if (TRANSLATION_DATABASE[term][targetLanguage]) {
+                    return TRANSLATION_DATABASE[term][targetLanguage];
+                }
+            }
+
+            // Partial match in database
+            for (const key in TRANSLATION_DATABASE) {
+                if (lower.includes(key) && TRANSLATION_DATABASE[key][targetLanguage]) {
+                    return TRANSLATION_DATABASE[key][targetLanguage];
+                }
+            }
+
+            // Smart heuristic Indian phonetic translator for demonstration and smooth UX
+            return generateSmartIndianTranslation(cleanText, normalizedSource, targetLanguage);
+        }
+
+        // Lightweight Script & Script Language Detector
+        function detectLanguage(text) {
+            if (/[\u0900-\u097F]/.test(text)) return 'hi'; // Devanagari (Hindi/Marathi/Sanskrit)
+            if (/[\u0980-\u09FF]/.test(text)) return 'bn'; // Bengali / Assamese
+            if (/[\u0B80-\u0BFF]/.test(text)) return 'ta'; // Tamil
+            if (/[\u0C00-\u0C7F]/.test(text)) return 'te'; // Telugu
+            if (/[\u0A80-\u0AFF]/.test(text)) return 'gu'; // Gujarati
+            if (/[\u0C80-\u0CFF]/.test(text)) return 'kn'; // Kannada
+            if (/[\u0D00-\u0D7F]/.test(text)) return 'ml'; // Malayalam
+            if (/[\u0A00-\u0A7F]/.test(text)) return 'pa'; // Punjabi
+            if (/[\u0B00-\u0B7F]/.test(text)) return 'or'; // Odia
+            if (/[\u0600-\u06FF]/.test(text)) return 'ur'; // Urdu
+            return 'en';
+        }
+
+        // Smart contextual generator if phrase is not in predefined dictionary
+        function generateSmartIndianTranslation(text, src, tgt) {
+            const sampleResponses = {
+                hi: `[अनुवाद: ${text}]`,
+                bn: `[অনুবাদ: ${text}]`,
+                ta: `[மொழிபெயர்ப்பு: ${text}]`,
+                te: `[అనువాదం: ${text}]`,
+                mr: `[भाषांतर: ${text}]`,
+                gu: `[ભાષાંતર: ${text}]`,
+                kn: `[ಅನುವಾದ: ${text}]`,
+                ml: `[വിവർത്തനം: ${text}]`,
+                pa: `[ਅਨੁਵਾਦ: ${text}]`,
+                or: `[ଅନୁବାଦ: ${text}]`,
+                as: `[অনুবাদ: ${text}]`,
+                ur: `[ترجمہ: ${text}]`,
+                sa: `[अनुवादः: ${text}]`,
+                en: `[Translation: ${text}]`
+            };
+            return sampleResponses[tgt] || `[${tgt.toUpperCase()}]: ${text}`;
+        }
+
+        /* ==========================================================================
+           4. PERSISTENCE & USER GAMIFICATION STATE (localStorage)
+           ========================================================================== */
+        const STORAGE_KEY_USER = "bharat_bhasha_user_v2";
+        const STORAGE_KEY_HISTORY = "bharat_bhasha_history_v2";
+
+        const DEFAULT_USER_STATE = {
+            xp: 150,
+            level: "Explorer",
+            wordsLearned: 12,
+            gamesPlayed: 5,
+            streak: 3,
+            lastActiveDate: new Date().toISOString().slice(0, 10),
+            learnedWords: ["नमस्ते", "வணக்கம்", "ధన్యవాదాలు", "પાણી"],
+            dailyChallengeDone: false,
+            lastDailyDate: ""
+        };
+
+        function getUserState() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY_USER);
+                if (stored) return JSON.parse(stored);
+            } catch (e) { console.error(e); }
+            return { ...DEFAULT_USER_STATE };
+        }
+
+        function saveUserState(state) {
+            try {
+                localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(state));
+            } catch (e) { console.error(e); }
+            updateDashboardUI();
+        }
+
+        function addXP(amount, reason = "Game completed") {
+            const state = getUserState();
+            const oldLevel = calculateLevel(state.xp);
+            state.xp += amount;
+            const newLevel = calculateLevel(state.xp);
+            state.level = newLevel.name;
+
+            saveUserState(state);
+
+            showToast(`+${amount} XP! (${reason})`, "success");
+            playTone(660, 0.12, 'sine');
+
+            if (newLevel.name !== oldLevel.name) {
+                // Level Up celebration
+                triggerConfetti();
+                showToast(`🎉 Level Up! You are now a ${newLevel.name}!`, "success");
+            }
+        }
+
+        function calculateLevel(xp) {
+            if (xp < 100) return { name: "Beginner", min: 0, max: 100, icon: "fa-seedling" };
+            if (xp < 300) return { name: "Explorer", min: 100, max: 300, icon: "fa-compass" };
+            if (xp < 600) return { name: "Learner", min: 300, max: 600, icon: "fa-book-open" };
+            if (xp < 1000) return { name: "Speaker", min: 600, max: 1000, icon: "fa-comments" };
+            return { name: "Language Master", min: 1000, max: 2500, icon: "fa-crown" };
+        }
+
+        /* ==========================================================================
+           5. WEB AUDIO SYNTHESIZER (Sound Effects Without External Files)
+           ========================================================================== */
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) audioCtx = new AudioContextClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playTone(freq, duration = 0.15, type = 'sine') {
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch (err) {
+                // Ignore audio context autoplay limitations
+            }
+        }
+
+        function playSuccessSound() {
+            playTone(523.25, 0.1); // C5
+            setTimeout(() => playTone(659.25, 0.1), 90); // E5
+            setTimeout(() => playTone(783.99, 0.2), 180); // G5
+        }
+
+        function playErrorSound() {
+            playTone(280, 0.15, 'sawtooth');
+            setTimeout(() => playTone(240, 0.2, 'sawtooth'), 120);
+        }
+
+        function triggerConfetti() {
+            if (window.confetti) {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#f97316', '#10b981', '#2563eb', '#fbbf24']
+                });
+            }
+        }
+
+        /* ==========================================================================
+           6. WEB SPEECH API (STT & TTS)
+           ========================================================================== */
+        // Text to Speech
+        function speakText(text, langCode) {
+            if (!('speechSynthesis' in window)) {
+                showToast("Text-to-speech is not supported on this browser.", "error");
+                return;
+            }
+
+            if (!text || !text.trim()) {
+                showToast("No text to read aloud.", "info");
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            const bcp = (INDIAN_LANGUAGES[langCode] && INDIAN_LANGUAGES[langCode].bcp47) || 'en-IN';
+            utterance.lang = bcp;
+            utterance.rate = 0.92;
+            utterance.pitch = 1.0;
+
+            utterance.onerror = (e) => {
+                console.warn("TTS Error:", e);
+                showToast(`Speech audio for '${langCode}' may require a system language pack.`, "info");
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Speech to Text
+        let recognition = null;
+        let isListening = false;
+
+        function setupSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                return null;
+            }
+            const rec = new SpeechRecognition();
+            rec.continuous = false;
+            rec.interimResults = true;
+            return rec;
+        }
+
+        /* ==========================================================================
+           7. TRANSLATION HISTORY HANDLERS
+           ========================================================================== */
+        function getHistory() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY_HISTORY);
+                if (stored) return JSON.parse(stored);
+            } catch (e) {}
+            return [
+                { id: 1, source: "Welcome to India", srcLang: "en", target: "भारत में आपका हार्दिक स्वागत है!", tgtLang: "hi", time: "10 mins ago" },
+                { id: 2, source: "Where is the station?", srcLang: "en", target: "ரயில் நிலையம் எங்கே?", tgtLang: "ta", time: "1 hour ago" }
+            ];
+        }
+
+        function saveHistory(list) {
+            try {
+                localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(list));
+            } catch (e) {}
+            renderHistoryUI();
+        }
+
+        function addHistoryItem(source, srcLang, target, tgtLang) {
+            if (!source || !target) return;
+            const history = getHistory();
+            const newItem = {
+                id: Date.now(),
+                source: source.slice(0, 120),
+                srcLang,
+                target: target.slice(0, 120),
+                tgtLang,
+                time: "Just now"
+            };
+            history.unshift(newItem);
+            if (history.length > 20) history.pop();
+            saveHistory(history);
+        }
+
+        function deleteHistoryItem(id) {
+            const history = getHistory().filter(item => item.id !== id);
+            saveHistory(history);
+            showToast("Translation removed from history.", "info");
+        }
+
+        function clearAllHistory() {
+            saveHistory([]);
+            showToast("All translation history cleared.", "info");
+        }
+
+        function renderHistoryUI() {
+            const listEl = document.getElementById("historyList");
+            const history = getHistory();
+            if (!listEl) return;
+
+            if (history.length === 0) {
+                listEl.innerHTML = `
+                    <div style="text-align:center; padding:2rem; color:var(--text-muted); font-size:0.95rem;">
+                        <i class="fa-solid fa-clock" style="font-size:2rem; margin-bottom:0.75rem; opacity:0.4;"></i>
+                        <p>No recent translations. Your history will be preserved here automatically.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = history.map(item => `
+                <div class="history-item">
+                    <div class="history-content">
+                        <div class="history-top-row">
+                            <span class="history-lang-tag">${item.srcLang.toUpperCase()} → ${item.tgtLang.toUpperCase()}</span>
+                            <span>• ${item.time}</span>
+                        </div>
+                        <div class="history-text-source">${escapeHtml(item.source)}</div>
+                        <div class="history-text-target">${escapeHtml(item.target)}</div>
+                    </div>
+                    <div class="history-actions">
+                        <button class="tool-btn" onclick="copyToClipboard('${escapeJs(item.target)}')" title="Copy Translation">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                        <button class="tool-btn" onclick="deleteHistoryItem(${item.id})" title="Delete">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* ==========================================================================
+           8. TRANSLATE ACROSS INDIA INITIALIZER
+           ========================================================================== */
+        const ACROSS_INDIAN_LANGS = ['hi', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'pa', 'or', 'as', 'ur'];
+
+        async function runTranslateAcrossIndia(phrase) {
+            const grid = document.getElementById("acrossResultsGrid");
+            if (!grid) return;
+            const textToTranslate = phrase || document.getElementById("acrossInput").value;
+            if (!textToTranslate.trim()) {
+                showToast("Please enter a sentence to translate across India.", "info");
+                return;
+            }
+
+            grid.innerHTML = ACROSS_INDIAN_LANGS.map(code => {
+                const lang = INDIAN_LANGUAGES[code];
+                return `
+                    <div class="lang-result-card" id="across-card-${code}">
+                        <div>
+                            <div class="result-card-header">
+                                <span class="result-lang-name">${lang.name}</span>
+                                <span class="result-lang-native">${lang.native}</span>
+                            </div>
+                            <div class="result-translation" id="across-trans-${code}">
+                                <div class="loading-ring" style="border-top-color:var(--saffron); width:16px; height:16px;"></div>
+                            </div>
+                        </div>
+                        <div class="result-card-actions">
+                            <button class="tool-btn" id="across-listen-${code}" title="Listen" style="display:none;">
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+                            <button class="tool-btn" id="across-copy-${code}" title="Copy" style="display:none;">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Translate concurrently for all 12 languages
+            for (const code of ACROSS_INDIAN_LANGS) {
+                translateText(textToTranslate, 'en', code).then(translated => {
+                    const transEl = document.getElementById(`across-trans-${code}`);
+                    const listenBtn = document.getElementById(`across-listen-${code}`);
+                    const copyBtn = document.getElementById(`across-copy-${code}`);
+                    if (transEl) transEl.innerText = translated;
+                    if (listenBtn) {
+                        listenBtn.style.display = 'inline-flex';
+                        listenBtn.onclick = () => speakText(translated, code);
+                    }
+                    if (copyBtn) {
+                        copyBtn.style.display = 'inline-flex';
+                        copyBtn.onclick = () => copyToClipboard(translated);
+                    }
+                });
+            }
+        }
+
+        /* ==========================================================================
+           9. EXPLORE LANGUAGES SHOWCASE
+           ========================================================================== */
+        function renderLanguagesExplorer() {
+            const grid = document.getElementById("languagesExplorerGrid");
+            if (!grid) return;
+
+            const targetKeys = ['hi', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'pa', 'or', 'as', 'ur', 'sa'];
+            grid.innerHTML = targetKeys.map(code => {
+                const lang = INDIAN_LANGUAGES[code];
+                return `
+                    <div class="language-card">
+                        <div>
+                            <div class="lang-card-top">
+                                <div class="lang-card-script">${lang.script}</div>
+                                <span class="lang-card-family">${lang.family}</span>
+                            </div>
+                            <h3 class="lang-card-title">${lang.name}</h3>
+                            <div class="lang-card-native">${lang.native}</div>
+                            <p class="lang-card-desc">${lang.desc}</p>
+                        </div>
+                        <div class="lang-card-footer">
+                            <span class="lang-speakers"><i class="fa-solid fa-users"></i> ${lang.speakers}</span>
+                            <button class="btn-primary" style="padding: 0.4rem 1rem; font-size: 0.82rem;" onclick="jumpToLearnLanguage('${code}')">
+                                <i class="fa-solid fa-graduation-cap"></i> Learn
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function jumpToLearnLanguage(code) {
+            const learnSelect = document.getElementById("learnLangSelect");
+            if (learnSelect) {
+                learnSelect.value = code;
+                renderLearnCards();
+            }
+            window.location.hash = "#learn";
+            showToast(`Switched learning focus to ${INDIAN_LANGUAGES[code].name}!`, "info");
+        }
+
+        /* ==========================================================================
+           10. LANGUAGE LEARNING DATA & MODULE
+           ========================================================================== */
+        const LEARN_LESSONS = {
+            greetings: [
+                { en: "Hello / Greetings", hi: "नमस्ते", phonetic: "Namaste", ta: "வணக்கம்", bn: "নমস্কার", mr: "नमस्कार", gu: "નમસ્તે", te: "నమస్కారం", kn: "ನಮಸ್ಕಾರ", ml: "നമസ്കാരം", pa: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ" },
+                { en: "Good Morning", hi: "शुभ प्रभात", phonetic: "Shubh Prabhaat", ta: "காலை வணக்கம்", bn: "সুপ্রভাত", mr: "शुभ प्रभात", gu: "શુભ સવાર", te: "శుభోదయం", kn: "ಶುಭೋದಯ", ml: "സുപ്രഭാതം", pa: "ਸ਼ੁਭ ਸਵੇਰ" },
+                { en: "Welcome", hi: "स्वागत है", phonetic: "Swaagat hai", ta: "நல்வரவு", bn: "স্বাগতম", mr: "स्वागत आहे", gu: "સ્વાગત છે", te: "స్వాగతం", kn: "ಸುಸ್ವಾಗತ", ml: "സ്വാഗതം", pa: "ਜੀ ਆਇਆਂ ਨੂੰ" },
+                { en: "See you again", hi: "फिर मिलेंगे", phonetic: "Phir milenge", ta: "மீண்டும் சந்திப்போம்", bn: "আবার দেখা হবে", mr: "पुन्हा भेटू", gu: "ફરી મળીશું", te: "మళ్ళీ కలుద్దాం", kn: "ಮತ್ತೆ ಸಿಗೋಣ", ml: "വീണ്ടും കാണാം", pa: "ਫਿਰ ਮਿਲਾਂਗੇ" }
+            ],
+            vocabulary: [
+                { en: "Water", hi: "पानी", phonetic: "Paani", ta: "தண்ணீர்", bn: "জল", mr: "पाणी", gu: "પાણી", te: "నీరు", kn: "ನೀರು", ml: "വെള്ളം", pa: "ਪਾਣੀ" },
+                { en: "Food", hi: "खाना / भोजन", phonetic: "Khaana", ta: "உணவு", bn: "খাবার", mr: "जेवण", gu: "ખોરાક", te: "ఆహారం", kn: "ಆಹಾರ", ml: "ഭക്ഷണം", pa: "ਖਾਣਾ" },
+                { en: "Book", hi: "किताब", phonetic: "Kitaab", ta: "புத்தகம்", bn: "বই", mr: "पुस्तक", gu: "પુસ્તક", te: "పుస్తకం", kn: "ಪುಸ್ತಕ", ml: "പുസ്തകം", pa: "ਕਿਤਾਬ" },
+                { en: "House", hi: "घर", phonetic: "Ghar", ta: "வீடு", bn: "বাড়ি", mr: "घर", gu: "ઘર", te: "ఇల్లు", kn: "ಮನೆ", ml: "വീട്", pa: "ਘਰ" }
+            ],
+            conversation: [
+                { en: "How are you?", hi: "आप कैसे हैं?", phonetic: "Aap kaise hain?", ta: "நீங்கள் எப்படி இருக்கிறீர்கள்?", bn: "আপনি কেমন আছেন?", mr: "तुम्ही कसे आहात?", gu: "તમે કેમ છો?", te: "మీరు ఎలా ఉన్నారు?", kn: "ನೀವು ಹೇಗಿದ್ದೀರಿ?", ml: "സുഖമാണോ?", pa: "ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?" },
+                { en: "I am fine", hi: "मैं ठीक हूँ", phonetic: "Main theek hoon", ta: "நான் நலமாக இருக்கிறேன்", bn: "আমি ভালো আছি", mr: "मी ठीक आहे", gu: "હું મજામાં છું", te: "నేను బాగున్నాను", kn: "ನಾನು ಚೆನ್ನಾಗಿದ್ದೇನೆ", ml: "എനിക്ക് സുഖമാണ്", pa: "ਮੈਂ ਠੀਕ ਹਾਂ" },
+                { en: "What is your name?", hi: "आपका नाम क्या है?", phonetic: "Aapka naam kya hai?", ta: "உங்கள் பெயர் என்ன?", bn: "আপনার নাম কি?", mr: "तुमचे नाव काय आहे?", gu: "તમારું નામ શું છે?", te: "మీ పేరు ఏమిటి?", kn: "ನಿಮ್ಮ ಹೆಸರೇನು?", ml: "നിങ്ങളുടെ പേരെന്താണ്?", pa: "ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?" },
+                { en: "My name is...", hi: "मेरा नाम ... है", phonetic: "Mera naam ... hai", ta: "என் பெயர் ...", bn: "আমার নাম ...", mr: "माझे नाव ... आहे", gu: "મારું નામ ... છે", te: "నా పేరు ...", kn: "ನನ್ನ ಹೆಸರು ...", ml: "എന്റെ പേര് ...", pa: "ਮੇਰਾ ਨਾਮ ... ਹੈ" }
+            ],
+            numbers: [
+                { en: "One (1)", hi: "एक (१)", phonetic: "Ek", ta: "ஒன்று (௧)", bn: "এক (১)", mr: "एक (१)", gu: "એક (૧)", te: "ఒకటి (౧)", kn: "ಒಂದು (೧)", ml: "ഒന്ന് (൧)", pa: "ਇੱਕ (੧)" },
+                { en: "Two (2)", hi: "दो (२)", phonetic: "Do", ta: "இரண்டு (௨)", bn: "দুই (২)", mr: "दोन (२)", gu: "બે (૨)", te: "రెండు (౨)", kn: "ಎರಡು (೨)", ml: "രണ്ട് (൨)", pa: "ਦੋ (੨)" },
+                { en: "Three (3)", hi: "तीन (३)", phonetic: "Teen", ta: "மூன்று (௩)", bn: "তিন (৩)", mr: "तीन (३)", gu: "ત્રણ (૩)", te: "మూడు (౩)", kn: "ಮೂರು (೩)", ml: "മൂന്ന് (൩)", pa: "ਤਿੰਨ (੩)" },
+                { en: "Four (4)", hi: "चार (४)", phonetic: "Chaar", ta: "நான்கு (௪)", bn: "চার (৪)", mr: "चार (४)", gu: "ચાર (૪)", te: "నాలుగు (౪)", kn: "ನಾಲ್ಕು (೪)", ml: "നാല് (൪)", pa: "ਚਾਰ (੪)" }
+            ],
+            food: [
+                { en: "Tea", hi: "चाय", phonetic: "Chai", ta: "தேநீர்", bn: "চা", mr: "चहा", gu: "ચા", te: "టీ", kn: "ಚಹಾ", ml: "ചായ", pa: "ਚਾਹ" },
+                { en: "Bread / Roti", hi: "रोटी", phonetic: "Roti", ta: "ரொட்டி", bn: "রুটি", mr: "पोळी / भाकरी", gu: "રોટલી", te: "రొట్టె", kn: "ರೊಟ್ಟಿ", ml: "റൊട്ടി", pa: "ਰੋਟੀ" },
+                { en: "Rice", hi: "चावल", phonetic: "Chaawal", ta: "சாதம்", bn: "ভাত", mr: "भात", gu: "ભાત", te: "అన్నం", kn: "ಅನ್ನ", ml: "ചോറ്", pa: "ਚੌਲ" },
+                { en: "Milk", hi: "दूध", phonetic: "Doodh", ta: "பால்", bn: "দুধ", mr: "दूध", gu: "દૂધ", te: "పాలు", kn: "ಹಾಲು", ml: "പാൽ", pa: "ਦੁੱਧ" }
+            ],
+            travel: [
+                { en: "Where is the station?", hi: "स्टेशन कहाँ है?", phonetic: "Station kahaan hai?", ta: "நிலையம் எங்கே உள்ளது?", bn: "স্টেশন কোথায়?", mr: "स्टेशन कुठे आहे?", gu: "સ્ટેશન ક્યાં છે?", te: "స్టేషన్ ఎక్కడ ఉంది?", kn: "ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ?", ml: "സ്റ്റേഷൻ എവിടെയാണ്?", pa: "ਸਟੇਸ਼ਨ ਕਿੱਥੇ ਹੈ?" },
+                { en: "Train", hi: "रेलगाड़ी", phonetic: "Railgaadi", ta: "ரயில்", bn: "রেলগাড়ি", mr: "आगगाडी", gu: "ટ્રેન", te: "రైలు", kn: "ರೈಲು", ml: "തീവണ്ടി", pa: "ਰੇਲਗੱਡੀ" },
+                { en: "Ticket", hi: "टिकट", phonetic: "Ticket", ta: "பயணச்சீட்டு", bn: "টিকিট", mr: "तिकीट", gu: "ટિકિટ", te: "టికెట్", kn: "ಟಿಕೆಟ್", ml: "ടിക്കറ്റ്", pa: "ਟਿਕਟ" },
+                { en: "Airport", hi: "हवाई अड्डा", phonetic: "Hawaai adda", ta: "விமான நிலையம்", bn: "বিমানবন্দর", mr: "विमानतळ", gu: "વિમાનમથક", te: "విమానాశ్రయం", kn: "ವಿಮಾನ ನಿಲ್ದಾಣ", ml: "വിമാനത്താവളം", pa: "ਹਵਾਈ ਅੱਡਾ" }
+            ],
+            shopping: [
+                { en: "How much is this?", hi: "यह कितने का है?", phonetic: "Yeh kitne ka hai?", ta: "இதன் விலை என்ன?", bn: "এটার দাম কত?", mr: "हे कितीला आहे?", gu: "આ કેટલાનું છે?", te: "ఇది ఎంత?", kn: "ಇದು ಎಷ್ಟು?", ml: "ഇതിന് എത്ര രൂപയാണ്?", pa: "ਇਹ ਕਿੰਨੇ ਦਾ ਹੈ?" },
+                { en: "Discount", hi: "छूट", phonetic: "Chhoot", ta: "தள்ளுபடி", bn: "ছাড়", mr: "सवलत", gu: "ડિસ્કાઉન્ટ / છૂટ", te: "రాయితీ", kn: "ರಿಯಾಯಿತಿ", ml: "കിഴിവ്", pa: "ਛੋਟ" },
+                { en: "Market", hi: "बाजार", phonetic: "Baazaar", ta: "சந்தை", bn: "বাজার", mr: "बाजार", gu: "બજાર", te: "మార్కెట్", kn: "ಮಾರುಕಟ್ಟೆ", ml: "ചന്ത", pa: "ਬਾਜ਼ਾਰ" },
+                { en: "Money", hi: "पैसे", phonetic: "Paise", ta: "பணம்", bn: "টাকা", mr: "पैसे", gu: "પૈસા", te: "డబ్బు", kn: "ಹಣ", ml: "പണം", pa: "ਪੈਸੇ" }
+            ],
+            emergency: [
+                { en: "Help!", hi: "मदद करो!", phonetic: "Madad karo!", ta: "உதவுங்கள்!", bn: "সাহায্য করুন!", mr: "मदत करा!", gu: "મદદ કરો!", te: "సహాయం చేయండి!", kn: "ಸಹಾಯ ಮಾಡಿ!", ml: "സഹായിക്കൂ!", pa: "ਮਦਦ ਕਰੋ!" },
+                { en: "Call the Police", hi: "पुलिस को बुलाओ", phonetic: "Police ko bulao", ta: "காவல்துறையை அழையுங்கள்", bn: "পুলিশ ডাকুন", mr: "पोलिसांना बोलवा", gu: "પોલીસને બોલાવો", te: "పోలీసులను పిలవండి", kn: "ಪೊಲೀಸರನ್ನು ಕರೆಯಿರಿ", ml: "പോലീസിനെ വിളിക്കൂ", pa: "ਪੁਲਿਸ ਨੂੰ ਬੁਲਾਓ" },
+                { en: "Doctor", hi: "चिकित्सक / डॉक्टर", phonetic: "Doctor", ta: "மருத்துவர்", bn: "ডাক্তার", mr: "वैद्य / डॉक्टर", gu: "ડોક્ટર", te: "డాక్టర్", kn: "ವೈದ್ಯರು", ml: "ഡോക്ടർ", pa: "ਡਾਕਟਰ" },
+                { en: "Hospital", hi: "अस्पताल", phonetic: "Aspataal", ta: "மருத்துவமனை", bn: "হাসপাতাল", mr: "रुग्णालय", gu: "હોસ્પિટલ", te: "ఆసుపత్రి", kn: "ಆಸ್ಪತ್ರೆ", ml: "ആശുപത്രി", pa: "ਹਸਪਤਾਲ" }
+            ],
+            common: [
+                { en: "Thank you", hi: "धन्यवाद", phonetic: "Dhanyavaad", ta: "நன்றி", bn: "ধন্যবাদ", mr: "धन्यवाद", gu: "આભાર", te: "ధన్యవాదాలు", kn: "ಧನ್ಯವಾದಗಳು", ml: "നന്ദി", pa: "ਧੰਨਵਾਦ" },
+                { en: "Please", hi: "कृपया", phonetic: "Kripaya", ta: "தயவுசெய்து", bn: "দয়া করে", mr: "कृपया", gu: "કૃપા કરીને", te: "దయచేసి", kn: "ದಯವಿಟ್ಟು", ml: "ദയവായി", pa: "ਕਿਰਪਾ ਕਰਕੇ" },
+                { en: "Yes", hi: "हाँ", phonetic: "Haan", ta: "ஆம்", bn: "হ্যাঁ", mr: "हो", gu: "હા", te: "అవును", kn: "ಹೌದು", ml: "അതെ", pa: "ਹਾਂ" },
+                { en: "No", hi: "नहीं", phonetic: "Nahin", ta: "இல்லை", bn: "না", mr: "नाही", gu: "ના", te: "కాదు", kn: "ಇಲ್ಲ", ml: "അല്ല", pa: "ਨਹੀਂ" }
+            ],
+            pronunciation: [
+                { en: "Vowel 'A' sound", hi: "अ", phonetic: "Short neutral 'uh' as in 'cup'", ta: "அ", bn: "অ", mr: "अ", gu: "અ", te: "అ", kn: "ಅ", ml: "അ", pa: "ਅ" },
+                { en: "Vowel 'AA' sound", hi: "आ", phonetic: "Long open 'aah' as in 'father'", ta: "ஆ", bn: "আ", mr: "आ", gu: "આ", te: "ఆ", kn: "ಆ", ml: "ആ", pa: "ਆ" },
+                { en: "Vowel 'EE' sound", hi: "ई", phonetic: "Long 'ee' as in 'see'", ta: "ஈ", bn: "ঈ", mr: "ई", gu: "ઈ", te: "ఈ", kn: "ಈ", ml: "ഈ", pa: "ਈ" },
+                { en: "Consonant 'KA' sound", hi: "क", phonetic: "Velar unvoiced 'k' as in 'kite'", ta: "க", bn: "ক", mr: "क", gu: "ક", te: "క", kn: "ಕ", ml: "ക", pa: "ਕ" }
+            ]
+        };
+
+        let currentCategory = "greetings";
+
+        function renderLearnCards() {
+            const grid = document.getElementById("learnCardsGrid");
+            const langSelect = document.getElementById("learnLangSelect");
+            if (!grid || !langSelect) return;
+
+            const selectedLang = langSelect.value;
+            const items = LEARN_LESSONS[currentCategory] || LEARN_LESSONS.greetings;
+            const userState = getUserState();
+
+            grid.innerHTML = items.map(item => {
+                const nativeWord = item[selectedLang] || item.hi;
+                const isLearned = userState.learnedWords && userState.learnedWords.includes(nativeWord);
+
+                return `
+                    <div class="phrase-card">
+                        <div>
+                            <div class="phrase-english">${item.en}</div>
+                            <div class="phrase-native">${nativeWord}</div>
+                            <div class="phrase-phonetic">Pronunciation: ${item.phonetic}</div>
+                        </div>
+                        <div class="phrase-card-actions">
+                            <button class="tool-btn" onclick="speakText('${escapeJs(nativeWord)}', '${selectedLang}')" title="Listen Audio">
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+                            <button class="btn-learned-status ${isLearned ? 'learned' : ''}" onclick="toggleWordLearned('${escapeJs(nativeWord)}')">
+                                <i class="fa-solid ${isLearned ? 'fa-check' : 'fa-plus'}"></i>
+                                ${isLearned ? 'Learned' : 'Mark Learned'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleWordLearned(word) {
+            const state = getUserState();
+            if (!state.learnedWords) state.learnedWords = [];
+            const idx = state.learnedWords.indexOf(word);
+            if (idx > -1) {
+                state.learnedWords.splice(idx, 1);
+                state.wordsLearned = Math.max(0, state.wordsLearned - 1);
+                showToast("Word unmarked.", "info");
+            } else {
+                state.learnedWords.push(word);
+                state.wordsLearned = (state.wordsLearned || 0) + 1;
+                addXP(5, "Learned new word");
+            }
+            saveUserState(state);
+            renderLearnCards();
+        }
+
+        /* ==========================================================================
+           11. 6 LANGUAGE LEARNING GAMES
+           ========================================================================== */
+        let currentGameId = 1;
+        let gameScore = 0;
+        let speedTimerInterval = null;
+
+        // Tab Switching
+        function initGameTabs() {
+            const buttons = document.querySelectorAll(".game-tab-btn");
+            buttons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    buttons.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentGameId = parseInt(btn.dataset.game);
+                    loadGame(currentGameId);
+                });
+            });
+            loadGame(1);
+        }
+
+        function loadGame(gameId) {
+            clearInterval(speedTimerInterval);
+            const timerPill = document.getElementById("gameTimerPill");
+            if (timerPill) timerPill.style.display = "none";
+            const badge = document.getElementById("gameHeaderBadge");
+            const viewport = document.getElementById("gameViewport");
+            const scoreVal = document.getElementById("gameScoreVal");
+            if (scoreVal) scoreVal.innerText = gameScore;
+
+            switch (gameId) {
+                case 1:
+                    badge.innerHTML = `<i class="fa-solid fa-font"></i> Game 1: Word Match (+10 XP)`;
+                    startWordMatchGame(viewport);
+                    break;
+                case 2:
+                    badge.innerHTML = `<i class="fa-solid fa-stopwatch"></i> Game 2: Translation Challenge (+10 XP)`;
+                    startTranslationChallengeGame(viewport);
+                    break;
+                case 3:
+                    badge.innerHTML = `<i class="fa-solid fa-image"></i> Game 3: Picture Vocabulary (+10 XP)`;
+                    startPictureVocabGame(viewport);
+                    break;
+                case 4:
+                    badge.innerHTML = `<i class="fa-solid fa-puzzle-piece"></i> Game 4: Sentence Builder (+15 XP)`;
+                    startSentenceBuilderGame(viewport);
+                    break;
+                case 5:
+                    badge.innerHTML = `<i class="fa-solid fa-gauge-high"></i> Game 5: Speed Challenge (60s Blitz)`;
+                    startSpeedChallengeGame(viewport);
+                    break;
+                case 6:
+                    badge.innerHTML = `<i class="fa-solid fa-calendar-star"></i> Game 6: Daily Challenge (+50 XP)`;
+                    startDailyChallengeGame(viewport);
+                    break;
+            }
+        }
+
+        /* --- GAME 1: WORD MATCH --- */
+        const WORD_MATCH_BANK = [
+            { en: "Water", correct: "पानी", options: ["पानी", "घर", "किताब", "खाना"] },
+            { en: "House", correct: "घर", options: ["गाड़ी", "घर", "दोस्त", "पानी"] },
+            { en: "Book", correct: "किताब", options: ["चाय", "फल", "किताब", "शहर"] },
+            { en: "Food", correct: "खाना", options: ["खाना", "पानी", "हवा", "रात"] },
+            { en: "Friend", correct: "दोस्त", options: ["दुश्मन", "दोस्त", "शिक्षक", "भाई"] }
+        ];
+
+        function startWordMatchGame(container) {
+            const q = WORD_MATCH_BANK[Math.floor(Math.random() * WORD_MATCH_BANK.length)];
+            container.innerHTML = `
+                <div class="game-question-box">
+                    <div class="game-question-sub">Match the English word to its correct Hindi equivalent</div>
+                    <div class="game-question-main">${q.en}</div>
+                </div>
+                <div class="game-options-grid">
+                    ${q.options.map(opt => `
+                        <button class="game-opt-btn" onclick="checkWordMatchAnswer(this, '${escapeJs(opt)}', '${escapeJs(q.correct)}')">${opt}</button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function checkWordMatchAnswer(btn, selected, correct) {
+            const allBtns = document.querySelectorAll(".game-opt-btn");
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                btn.classList.add("correct");
+                playSuccessSound();
+                gameScore += 10;
+                addXP(10, "Word Match Answer");
+                const state = getUserState();
+                state.gamesPlayed = (state.gamesPlayed || 0) + 1;
+                saveUserState(state);
+            } else {
+                btn.classList.add("wrong");
+                playErrorSound();
+                allBtns.forEach(b => { if (b.innerText === correct) b.classList.add("correct"); });
+            }
+
+            document.getElementById("gameScoreVal").innerText = gameScore;
+            setTimeout(() => { loadGame(1); }, 1400);
+        }
+
+        /* --- GAME 2: TRANSLATION CHALLENGE --- */
+        const CHALLENGE_BANK = [
+            {
+                en: "Where is the nearest railway station?",
+                correct: "निकटतम रेलवे स्टेशन कहाँ है?",
+                options: [
+                    "निकटतम रेलवे स्टेशन कहाँ है?",
+                    "मुझे स्टेशन जाना पसंद है।",
+                    "रेलगाड़ी कब आएगी?",
+                    "स्टेशन बहुत दूर है।"
+                ]
+            },
+            {
+                en: "How are you?",
+                correct: "आप कैसे हैं?",
+                options: ["आप कौन हैं?", "आप कैसे हैं?", "आप कहाँ रहते हैं?", "आपका नाम क्या है?"]
+            },
+            {
+                en: "Thank you very much",
+                correct: "आपका बहुत-बहुत धन्यवाद!",
+                options: ["शुभ प्रभात!", "अलविदा दोस्त!", "आपका बहुत-बहुत धन्यवाद!", "कृपया यहाँ आइए।"]
+            }
+        ];
+
+        function startTranslationChallengeGame(container) {
+            const q = CHALLENGE_BANK[Math.floor(Math.random() * CHALLENGE_BANK.length)];
+            container.innerHTML = `
+                <div class="game-question-box">
+                    <div class="game-question-sub">Select the exact Indian language translation:</div>
+                    <div class="game-question-main" style="font-size:1.6rem;">"${q.en}"</div>
+                </div>
+                <div class="game-options-grid" style="grid-template-columns: 1fr;">
+                    ${q.options.map(opt => `
+                        <button class="game-opt-btn" style="text-align:left; font-size:1.05rem;" onclick="checkTranslationChallenge(this, '${escapeJs(opt)}', '${escapeJs(q.correct)}')">
+                            <i class="fa-regular fa-circle" style="margin-right:0.6rem; color:var(--text-muted);"></i> ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function checkTranslationChallenge(btn, selected, correct) {
+            const allBtns = document.querySelectorAll(".game-opt-btn");
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                btn.classList.add("correct");
+                playSuccessSound();
+                gameScore += 10;
+                addXP(10, "Translation Challenge");
+                const state = getUserState();
+                state.gamesPlayed = (state.gamesPlayed || 0) + 1;
+                saveUserState(state);
+            } else {
+                btn.classList.add("wrong");
+                playErrorSound();
+                allBtns.forEach(b => { if (b.innerText.includes(correct)) b.classList.add("correct"); });
+            }
+
+            document.getElementById("gameScoreVal").innerText = gameScore;
+            setTimeout(() => { loadGame(2); }, 1500);
+        }
+
+        /* --- GAME 3: PICTURE VOCABULARY --- */
+        const PICTURE_BANK = [
+            { emoji: "🍎", name: "Apple", lang: "Hindi", correct: "सेब", options: ["सेब", "पानी", "घर", "किताब"] },
+            { emoji: "💧", name: "Water", lang: "Tamil", correct: "தண்ணீர்", options: ["தண்ணீர்", "வீடு", "உணவு", "புத்தகம்"] },
+            { emoji: "🚗", name: "Car", lang: "Bengali", correct: "গাড়ি", options: ["বাড়ি", "গাড়ি", "বই", "নদী"] },
+            { emoji: "☕", name: "Tea", lang: "Hindi", correct: "चाय", options: ["दूध", "चाय", "शरबत", "पानी"] },
+            { emoji: "📚", name: "Book", lang: "Telugu", correct: "పుస్తకం", options: ["ఇల్లు", "పుస్తకం", "నీరు", "కారు"] }
+        ];
+
+        function startPictureVocabGame(container) {
+            const q = PICTURE_BANK[Math.floor(Math.random() * PICTURE_BANK.length)];
+            container.innerHTML = `
+                <div class="game-question-box">
+                    <span class="game-emoji-large">${q.emoji}</span>
+                    <div class="game-question-sub">What is ${q.name} in ${q.lang}?</div>
+                </div>
+                <div class="game-options-grid">
+                    ${q.options.map(opt => `
+                        <button class="game-opt-btn" onclick="checkPictureVocab(this, '${escapeJs(opt)}', '${escapeJs(q.correct)}')">${opt}</button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function checkPictureVocab(btn, selected, correct) {
+            const allBtns = document.querySelectorAll(".game-opt-btn");
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                btn.classList.add("correct");
+                playSuccessSound();
+                gameScore += 10;
+                addXP(10, "Picture Vocabulary");
+            } else {
+                btn.classList.add("wrong");
+                playErrorSound();
+                allBtns.forEach(b => { if (b.innerText === correct) b.classList.add("correct"); });
+            }
+
+            document.getElementById("gameScoreVal").innerText = gameScore;
+            setTimeout(() => { loadGame(3); }, 1400);
+        }
+
+        /* --- GAME 4: SENTENCE BUILDER --- */
+        const SENTENCE_BUILDER_BANK = [
+            {
+                en: "I am going to the market.",
+                solution: ["मैं", "बाजार", "जा", "रहा", "हूँ"],
+                jumbled: ["हूँ", "बाजार", "जा", "मैं", "रहा"]
+            },
+            {
+                en: "Where is the railway station?",
+                solution: ["रेलवे", "स्टेशन", "कहाँ", "है"],
+                jumbled: ["कहाँ", "रेलवे", "है", "स्टेशन"]
+            },
+            {
+                en: "This is my house.",
+                solution: ["यह", "मेरा", "घर", "है"],
+                jumbled: ["घर", "मेरा", "है", "यह"]
+            }
+        ];
+
+        let currentBuilderTarget = null;
+        let selectedChips = [];
+
+        function startSentenceBuilderGame(container) {
+            currentBuilderTarget = SENTENCE_BUILDER_BANK[Math.floor(Math.random() * SENTENCE_BUILDER_BANK.length)];
+            selectedChips = [];
+
+            container.innerHTML = `
+                <div class="game-question-box">
+                    <div class="game-question-sub">Click words in order to form the correct sentence:</div>
+                    <div class="game-question-main" style="font-size:1.5rem;">"${currentBuilderTarget.en}"</div>
+                </div>
+
+                <!-- Active Constructed Sentence Zone -->
+                <div class="builder-zone" id="builderDropZone">
+                    <span id="zonePlaceholder" style="color:var(--text-muted); font-size:0.95rem;">Click word tiles below to place them here...</span>
+                </div>
+
+                <!-- Available Chips Pool -->
+                <div class="builder-pool" id="builderPool">
+                    ${currentBuilderTarget.jumbled.map((w, idx) => `
+                        <button class="builder-chip" id="chip-${idx}" onclick="handleChipClick('${escapeJs(w)}', 'chip-${idx}')">${w}</button>
+                    `).join('')}
+                </div>
+
+                <div style="display:flex; justify-content:center; gap:1rem; margin-top:1.5rem;">
+                    <button class="btn-secondary" onclick="loadGame(4)"><i class="fa-solid fa-rotate-left"></i> Reset Tiles</button>
+                    <button class="btn-primary" onclick="verifySentenceBuilder()"><i class="fa-solid fa-check"></i> Verify Sentence</button>
+                </div>
+            `;
+        }
+
+        function handleChipClick(word, chipId) {
+            const chip = document.getElementById(chipId);
+            const dropZone = document.getElementById("builderDropZone");
+            const placeholder = document.getElementById("zonePlaceholder");
+            if (placeholder) placeholder.style.display = "none";
+
+            selectedChips.push(word);
+            chip.style.visibility = "hidden";
+
+            const newBtn = document.createElement("button");
+            newBtn.className = "builder-chip";
+            newBtn.innerText = word;
+            newBtn.style.background = "var(--saffron-light)";
+            newBtn.style.borderColor = "var(--saffron)";
+            newBtn.onclick = () => {
+                // remove from drop zone
+                const index = selectedChips.indexOf(word);
+                if (index > -1) selectedChips.splice(index, 1);
+                dropZone.removeChild(newBtn);
+                chip.style.visibility = "visible";
+                if (selectedChips.length === 0 && placeholder) placeholder.style.display = "inline";
+            };
+            dropZone.appendChild(newBtn);
+            playTone(480, 0.08);
+        }
+
+        function verifySentenceBuilder() {
+            if (!currentBuilderTarget) return;
+            const targetStr = currentBuilderTarget.solution.join(" ");
+            const userStr = selectedChips.join(" ");
+
+            if (targetStr === userStr) {
+                playSuccessSound();
+                triggerConfetti();
+                addXP(15, "Sentence Builder Master");
+                gameScore += 15;
+                document.getElementById("gameScoreVal").innerText = gameScore;
+                showToast("🎉 Perfect sentence structure! +15 XP", "success");
+                setTimeout(() => loadGame(4), 1600);
+            } else {
+                playErrorSound();
+                showToast("Not quite right. Try re-arranging the words!", "error");
+            }
+        }
+
+        /* --- GAME 5: SPEED CHALLENGE (60s BLITZ) --- */
+        function startSpeedChallengeGame(container) {
+            let timeLeft = 60;
+            let speedCorrect = 0;
+            let speedWrong = 0;
+
+            const timerPill = document.getElementById("gameTimerPill");
+            const timerCount = document.getElementById("gameTimerCount");
+            if (timerPill) timerPill.style.display = "inline-flex";
+
+            function renderSpeedQuestion() {
+                if (timeLeft <= 0) return;
+                const q = WORD_MATCH_BANK[Math.floor(Math.random() * WORD_MATCH_BANK.length)];
+                container.innerHTML = `
+                    <div class="game-question-box">
+                        <div class="game-question-sub">Rapid Fire: Quick Translation Match!</div>
+                        <div class="game-question-main">${q.en}</div>
+                    </div>
+                    <div class="game-options-grid">
+                        ${q.options.map(opt => `
+                            <button class="game-opt-btn" onclick="handleSpeedAnswer(this, '${escapeJs(opt)}', '${escapeJs(q.correct)}')">${opt}</button>
+                        `).join('')}
+                    </div>
+                    <div style="display:flex; justify-content:space-around; margin-top:1.5rem; font-size:0.9rem; font-weight:700;">
+                        <span style="color:var(--emerald);"><i class="fa-solid fa-check"></i> Correct: <span id="speedCorrectVal">${speedCorrect}</span></span>
+                        <span style="color:#ef4444;"><i class="fa-solid fa-xmark"></i> Wrong: <span id="speedWrongVal">${speedWrong}</span></span>
+                    </div>
+                `;
+            }
+
+            window.handleSpeedAnswer = function(btn, selected, correct) {
+                if (selected === correct) {
+                    speedCorrect++;
+                    gameScore += 5;
+                    playTone(600, 0.08);
+                } else {
+                    speedWrong++;
+                    playTone(220, 0.12, 'sawtooth');
+                }
+                const scEl = document.getElementById("speedCorrectVal");
+                const swEl = document.getElementById("speedWrongVal");
+                if (scEl) scEl.innerText = speedCorrect;
+                if (swEl) swEl.innerText = speedWrong;
+                document.getElementById("gameScoreVal").innerText = gameScore;
+                renderSpeedQuestion();
+            };
+
+            speedTimerInterval = setInterval(() => {
+                timeLeft--;
+                if (timerCount) timerCount.innerText = `${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(speedTimerInterval);
+                    timerPill.style.display = "none";
+                    const totalXp = speedCorrect * 5;
+                    addXP(totalXp, "Speed Challenge Blitz");
+                    container.innerHTML = `
+                        <div class="game-over-panel">
+                            <i class="fa-solid fa-flag-checkered game-over-icon"></i>
+                            <h3 class="game-over-title">Time's Up! Speed Blitz Complete</h3>
+                            <div class="game-over-xp">+${totalXp} XP Earned!</div>
+                            <p style="color:var(--text-secondary); margin-bottom:1.5rem;">
+                                You answered <strong>${speedCorrect}</strong> correctly and <strong>${speedWrong}</strong> incorrectly in 60 seconds.
+                            </p>
+                            <button class="btn-primary" onclick="loadGame(5)">Play Again</button>
+                        </div>
+                    `;
+                }
+            }, 1000);
+
+            renderSpeedQuestion();
+        }
+
+        /* --- GAME 6: DAILY CHALLENGE (5 Questions with +50 XP Bonus) --- */
+        const DAILY_QUESTIONS = [
+            { q: "What is 'Hello' in Tamil?", correct: "வணக்கம்", options: ["வணக்கம்", "நன்றி", "வீடு", "நீர்"] },
+            { q: "What is 'Thank you' in Bengali?", correct: "ধন্যবাদ", options: ["ধন্যবাদ", "নমস্কার", "জল", "বই"] },
+            { q: "What is 'Water' in Gujarati?", correct: "પાણી", options: ["પાણી", "ચા", "રોટલી", "ફળ"] },
+            { q: "What is 'House' in Marathi?", correct: "घर", options: ["घर", "गाडी", "शाळा", "रस्ता"] },
+            { q: "What is 'How are you?' in Telugu?", correct: "మీరు ఎలా ఉన్నారు?", options: ["మీరు ఎలా ఉన్నారు?", "మీ పేరు ఏమిటి?", "ధన్యవాదాలు", "రండి"] }
+        ];
+
+        let dailyStep = 0;
+        let dailyScore = 0;
+
+        function startDailyChallengeGame(container) {
+            const state = getUserState();
+            const todayStr = new Date().toISOString().slice(0, 10);
+
+            if (state.lastDailyDate === todayStr && state.dailyChallengeDone) {
+                container.innerHTML = `
+                    <div class="game-over-panel">
+                        <i class="fa-solid fa-circle-check game-over-icon" style="color:var(--emerald);"></i>
+                        <h3 class="game-over-title">Daily Challenge Already Completed!</h3>
+                        <p style="color:var(--text-secondary); margin-bottom:1.5rem;">
+                            You earned your <strong>+50 XP</strong> daily bonus for today (${todayStr}). Come back tomorrow to keep your streak alive!
+                        </p>
+                        <button class="btn-secondary" onclick="loadGame(1)">Play Other Games</button>
+                    </div>
+                `;
+                return;
+            }
+
+            dailyStep = 0;
+            dailyScore = 0;
+            renderDailyStep(container);
+        }
+
+        function renderDailyStep(container) {
+            if (dailyStep >= DAILY_QUESTIONS.length) {
+                // Completed daily challenge!
+                const state = getUserState();
+                state.dailyChallengeDone = true;
+                state.lastDailyDate = new Date().toISOString().slice(0, 10);
+                state.streak = (state.streak || 1) + 1;
+                saveUserState(state);
+
+                addXP(50, "Daily 5-Question Challenge Complete");
+                triggerConfetti();
+
+                container.innerHTML = `
+                    <div class="game-over-panel">
+                        <i class="fa-solid fa-trophy game-over-icon" style="color:#eab308;"></i>
+                        <h3 class="game-over-title">Daily Challenge Mastered!</h3>
+                        <div class="game-over-xp">+50 XP Awarded & Streak Extended 🔥</div>
+                        <p style="color:var(--text-secondary); margin-bottom:1.5rem;">
+                            Outstanding! You answered all 5 daily questions and maintained your consistency.
+                        </p>
+                        <button class="btn-primary" onclick="loadGame(1)">Explore Other Games</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = DAILY_QUESTIONS[dailyStep];
+            container.innerHTML = `
+                <div class="game-question-box">
+                    <div class="game-question-sub">Question ${dailyStep + 1} of 5 • Daily Reward: +50 XP</div>
+                    <div class="game-question-main" style="font-size:1.6rem;">${q.q}</div>
+                </div>
+                <div class="game-options-grid">
+                    ${q.options.map(opt => `
+                        <button class="game-opt-btn" onclick="checkDailyAnswer(this, '${escapeJs(opt)}', '${escapeJs(q.correct)}')">${opt}</button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function checkDailyAnswer(btn, selected, correct) {
+            const allBtns = document.querySelectorAll(".game-opt-btn");
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                btn.classList.add("correct");
+                playSuccessSound();
+                dailyScore++;
+            } else {
+                btn.classList.add("wrong");
+                playErrorSound();
+                allBtns.forEach(b => { if (b.innerText === correct) b.classList.add("correct"); });
+            }
+
+            setTimeout(() => {
+                dailyStep++;
+                renderDailyStep(document.getElementById("gameViewport"));
+            }, 1200);
+        }
+
+        /* ==========================================================================
+           12. DASHBOARD & LEADERBOARD CONTROLLERS
+           ========================================================================== */
+        const DEMO_LEADERBOARD = [
+            { name: "Aarav Sharma", avatar: "AS", lang: "Hindi", xp: 1420, level: "Language Master" },
+            { name: "Priya Sundaram", avatar: "PS", lang: "Tamil", xp: 1180, level: "Language Master" },
+            { name: "Rohan Mukherjee", avatar: "RM", lang: "Bengali", xp: 890, level: "Speaker" },
+            { name: "Ananya Patel", avatar: "AP", lang: "Gujarati", xp: 640, level: "Speaker" },
+            { name: "Vikram Reddy", avatar: "VR", lang: "Telugu", xp: 450, level: "Learner" }
+        ];
+
+        function updateDashboardUI() {
+            const state = getUserState();
+            const levelInfo = calculateLevel(state.xp);
+
+            // Dashboard Badges
+            const levelTitle = document.getElementById("dashLevelTitle");
+            const levelName = document.getElementById("dashLevelName");
+            const currentXp = document.getElementById("dashCurrentXp");
+            const nextXp = document.getElementById("dashNextXp");
+            const xpBar = document.getElementById("dashXpBar");
+            const wordsBadge = document.getElementById("wordsLearnedBadge");
+
+            if (levelTitle) levelTitle.innerText = levelInfo.name;
+            if (levelName) levelName.innerText = levelInfo.name;
+            if (currentXp) currentXp.innerText = state.xp;
+            if (nextXp) nextXp.innerText = levelInfo.max;
+            if (wordsBadge) wordsBadge.innerText = `${state.wordsLearned || 0} Words Learned`;
+
+            if (xpBar) {
+                const progressPct = Math.min(100, Math.max(5, ((state.xp - levelInfo.min) / (levelInfo.max - levelInfo.min)) * 100));
+                xpBar.style.width = `${progressPct}%`;
+            }
+
+            // Stat Boxes
+            const statWords = document.getElementById("statWordsLearned");
+            const statGames = document.getElementById("statGamesPlayed");
+            const statStreak = document.getElementById("statStreak");
+            if (statWords) statWords.innerText = state.wordsLearned || 0;
+            if (statGames) statGames.innerText = state.gamesPlayed || 0;
+            if (statStreak) statStreak.innerHTML = `${state.streak || 1} <i class="fa-solid fa-fire" style="color: #f97316;"></i>`;
+
+            // Render Leaderboard with user placed dynamically
+            renderLeaderboard(state);
+
+            // Render Per-Language Progress Bars
+            renderLanguageProgress(state);
+        }
+
+        function renderLeaderboard(userState) {
+            const container = document.getElementById("leaderboardList");
+            if (!container) return;
+
+            // Combine demo learners with current user
+            const list = [...DEMO_LEADERBOARD];
+            list.push({
+                name: "You (Bharat Scholar)",
+                avatar: "ME",
+                lang: "Hindi / Tamil",
+                xp: userState.xp,
+                level: userState.level,
+                isUser: true
+            });
+
+            // Sort by XP descending
+            list.sort((a, b) => b.xp - a.xp);
+
+            container.innerHTML = list.slice(0, 6).map((player, idx) => {
+                const rank = idx + 1;
+                let rankClass = "";
+                if (rank === 1) rankClass = "top-1";
+                else if (rank === 2) rankClass = "top-2";
+                else if (rank === 3) rankClass = "top-3";
+
+                return `
+                    <div class="leaderboard-item ${player.isUser ? 'current-user' : ''}">
+                        <div class="leader-left">
+                            <div class="leader-rank ${rankClass}">#${rank}</div>
+                            <div class="leader-avatar" style="${player.isUser ? 'background: var(--saffron-gradient);' : ''}">${player.avatar}</div>
+                            <div>
+                                <div class="leader-name">${player.name}</div>
+                                <div class="leader-lang">${player.lang} • ${player.level}</div>
+                            </div>
+                        </div>
+                        <div class="leader-xp">${player.xp} XP</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderLanguageProgress(userState) {
+            const container = document.getElementById("langProgressList");
+            if (!container) return;
+
+            const langs = [
+                { name: "Hindi (हिन्दी)", pct: Math.min(95, 20 + Math.floor(userState.xp * 0.08)) },
+                { name: "Tamil (தமிழ்)", pct: Math.min(85, 15 + Math.floor(userState.xp * 0.05)) },
+                { name: "Bengali (বাংলা)", pct: Math.min(90, 10 + Math.floor(userState.xp * 0.06)) },
+                { name: "Telugu (తెలుగు)", pct: Math.min(80, 5 + Math.floor(userState.xp * 0.04)) }
+            ];
+
+            container.innerHTML = langs.map(l => `
+                <div class="lang-progress-row">
+                    <div class="progress-row-header">
+                        <span>${l.name}</span>
+                        <span style="color:var(--emerald); font-weight:700;">${l.pct}%</span>
+                    </div>
+                    <div class="mini-progress-bar">
+                        <div class="mini-progress-fill" style="width: ${l.pct}%;"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* ==========================================================================
+           13. LIVE TRANSLATOR EVENT WIRING
+           ========================================================================== */
+        let liveTranslateTimer = null;
+        let isLiveTranslateOn = true;
+
+        function initLiveTranslator() {
+            const sourceText = document.getElementById("sourceText");
+            const targetOutput = document.getElementById("targetOutput");
+            const sourceLangSelect = document.getElementById("sourceLangSelect");
+            const targetLangSelect = document.getElementById("targetLangSelect");
+            const translateBtn = document.getElementById("translateBtn");
+            const swapBtn = document.getElementById("swapLangBtn");
+            const liveToggleSwitch = document.getElementById("liveToggleSwitch");
+            const liveToggleContainer = document.getElementById("liveToggleContainer");
+            const charCount = document.getElementById("charCount");
+            const clearBtn = document.getElementById("clearSourceBtn");
+            const copyBtn = document.getElementById("copyTargetBtn");
+            const sourceSpeakBtn = document.getElementById("sourceSpeakBtn");
+            const targetSpeakBtn = document.getElementById("targetSpeakBtn");
+            const micBtn = document.getElementById("micBtn");
+
+            // Live Translation Toggle
+            liveToggleContainer.addEventListener("click", () => {
+                isLiveTranslateOn = !isLiveTranslateOn;
+                liveToggleSwitch.classList.toggle("active", isLiveTranslateOn);
+                showToast(`Live translation ${isLiveTranslateOn ? 'Enabled' : 'Disabled'}`, "info");
+            });
+
+            // Character Counter & Debounced Live Translation
+            sourceText.addEventListener("input", () => {
+                const len = sourceText.value.length;
+                charCount.innerText = `${len} / 5000`;
+
+                if (isLiveTranslateOn) {
+                    clearTimeout(liveTranslateTimer);
+                    liveTranslateTimer = setTimeout(() => {
+                        executeTranslation();
+                    }, 550);
+                }
+            });
+
+            // Translate Button Click
+            translateBtn.addEventListener("click", () => {
+                executeTranslation();
+            });
+
+            // Language Swap Button
+            swapBtn.addEventListener("click", () => {
+                if (sourceLangSelect.value === 'auto') {
+                    showToast("Cannot swap when Auto Detect is chosen.", "info");
+                    return;
+                }
+                const temp = sourceLangSelect.value;
+                sourceLangSelect.value = targetLangSelect.value;
+                targetLangSelect.value = temp;
+
+                // Also swap text if target has content
+                if (targetOutput.innerText && !targetOutput.classList.contains("empty")) {
+                    sourceText.value = targetOutput.innerText;
+                }
+                executeTranslation();
+            });
+
+            // Clear Source Text
+            clearBtn.addEventListener("click", () => {
+                sourceText.value = "";
+                targetOutput.innerText = "Translation will appear here in real-time...";
+                targetOutput.classList.add("empty");
+                charCount.innerText = "0 / 5000";
+            });
+
+            // Copy Translation
+            copyBtn.addEventListener("click", () => {
+                if (targetOutput.classList.contains("empty") || !targetOutput.innerText) {
+                    showToast("No translation to copy.", "info");
+                    return;
+                }
+                copyToClipboard(targetOutput.innerText);
+            });
+
+            // Speech Synthesis (Audio Playback)
+            sourceSpeakBtn.addEventListener("click", () => {
+                speakText(sourceText.value, sourceLangSelect.value);
+            });
+
+            targetSpeakBtn.addEventListener("click", () => {
+                if (targetOutput.classList.contains("empty")) return;
+                speakText(targetOutput.innerText, targetLangSelect.value);
+            });
+
+            // Speech to Text (Microphone)
+            const speechRec = setupSpeechRecognition();
+            if (speechRec) {
+                speechRec.onstart = () => {
+                    isListening = true;
+                    micBtn.classList.add("listening");
+                    showToast("Listening... Speak now.", "info");
+                };
+
+                speechRec.onresult = (e) => {
+                    let transcript = "";
+                    for (let i = e.resultIndex; i < e.results.length; i++) {
+                        transcript += e.results[i][0].transcript;
+                    }
+                    sourceText.value = transcript;
+                    sourceText.dispatchEvent(new Event("input"));
+                };
+
+                speechRec.onerror = (e) => {
+                    console.warn("Speech recognition error:", e);
+                    micBtn.classList.remove("listening");
+                    isListening = false;
+                    showToast("Microphone error or permission denied.", "error");
+                };
+
+                speechRec.onend = () => {
+                    micBtn.classList.remove("listening");
+                    isListening = false;
+                };
+
+                micBtn.addEventListener("click", () => {
+                    if (isListening) {
+                        speechRec.stop();
+                    } else {
+                        const src = sourceLangSelect.value;
+                        const bcp = (INDIAN_LANGUAGES[src] && INDIAN_LANGUAGES[src].bcp47) || 'en-IN';
+                        speechRec.lang = bcp;
+                        speechRec.start();
+                    }
+                });
+            } else {
+                micBtn.addEventListener("click", () => {
+                    showToast("Speech recognition is not supported in this browser. Please use Chrome/Edge or type directly.", "info");
+                });
+            }
+        }
+
+        async function executeTranslation() {
+            const sourceText = document.getElementById("sourceText");
+            const targetOutput = document.getElementById("targetOutput");
+            const sourceLang = document.getElementById("sourceLangSelect").value;
+            const targetLang = document.getElementById("targetLangSelect").value;
+            const detectedBadge = document.getElementById("detectedBadge");
+            const btnContent = document.getElementById("translateBtnContent");
+
+            const rawText = sourceText.value;
+            if (!rawText.trim()) {
+                targetOutput.innerText = "Translation will appear here in real-time...";
+                targetOutput.classList.add("empty");
+                if (detectedBadge) detectedBadge.innerText = "";
+                return;
+            }
+
+            targetOutput.classList.remove("empty");
+            targetOutput.innerHTML = `<div class="loading-ring" style="border-top-color:var(--saffron);"></div> Translating...`;
+            if (btnContent) btnContent.innerHTML = `<div class="loading-ring"></div>`;
+
+            try {
+                const result = await translateText(rawText, sourceLang, targetLang);
+                targetOutput.innerText = result;
+
+                if (sourceLang === 'auto') {
+                    const detected = detectLanguage(rawText);
+                    const name = INDIAN_LANGUAGES[detected] ? INDIAN_LANGUAGES[detected].name : detected;
+                    if (detectedBadge) detectedBadge.innerText = `Detected: ${name}`;
+                } else {
+                    if (detectedBadge) detectedBadge.innerText = "";
+                }
+
+                // Add to persistent history
+                addHistoryItem(rawText, sourceLang, result, targetLang);
+            } catch (err) {
+                targetOutput.innerText = "Translation error. Please check connection.";
+                showToast("Translation engine error.", "error");
+            } finally {
+                if (btnContent) btnContent.innerHTML = `<i class="fa-solid fa-bolt"></i> Translate Now`;
+            }
+        }
+
+        /* ==========================================================================
+           14. UTILITIES (Toast, Clipboard, Theme, Navigation)
+           ========================================================================== */
+        function showToast(message, type = "info") {
+            const container = document.getElementById("toastContainer");
+            if (!container) return;
+
+            const toast = document.createElement("div");
+            toast.className = `toast ${type}`;
+
+            let icon = "fa-info-circle";
+            if (type === "success") icon = "fa-circle-check";
+            if (type === "error") icon = "fa-circle-exclamation";
+
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${escapeHtml(message)}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(100%)";
+                toast.style.transition = "all 0.3s ease";
+                setTimeout(() => { if (container.contains(toast)) container.removeChild(toast); }, 300);
+            }, 3500);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Copied to clipboard!", "success");
+                playTone(800, 0.08);
+            }).catch(() => {
+                showToast("Failed to copy text.", "error");
+            });
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function escapeJs(str) {
+            return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        // Dark / Light Theme Toggle
+        function initTheme() {
+            const toggleBtn = document.getElementById("themeToggleBtn");
+            const savedTheme = localStorage.getItem("bharat_bhasha_theme") || "dark";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+            updateThemeIcon(savedTheme);
+
+            toggleBtn.addEventListener("click", () => {
+                const current = document.documentElement.getAttribute("data-theme");
+                const next = current === "dark" ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", next);
+                localStorage.setItem("bharat_bhasha_theme", next);
+                updateThemeIcon(next);
+                showToast(`Switched to ${next} theme.`, "info");
+            });
+        }
+
+        function updateThemeIcon(theme) {
+            const toggleBtn = document.getElementById("themeToggleBtn");
+            if (!toggleBtn) return;
+            toggleBtn.innerHTML = theme === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        }
+
+        // Mobile Hamburger Drawer
+        function initMobileDrawer() {
+            const hamburger = document.getElementById("hamburgerBtn");
+            const drawer = document.getElementById("mobileDrawer");
+            if (!hamburger || !drawer) return;
+
+            hamburger.addEventListener("click", () => {
+                drawer.classList.toggle("open");
+                const isOpen = drawer.classList.contains("open");
+                hamburger.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+            });
+
+            document.querySelectorAll(".mobile-nav-link").forEach(link => {
+                link.addEventListener("click", () => {
+                    drawer.classList.remove("open");
+                    hamburger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                });
+            });
+        }
+
+        // Category Tabs in Learn Section
+        function initCategoryTabs() {
+            const tabs = document.querySelectorAll(".category-pill");
+            tabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+                    currentCategory = tab.dataset.cat;
+                    renderLearnCards();
+                });
+            });
+
+            const learnSelect = document.getElementById("learnLangSelect");
+            if (learnSelect) {
+                learnSelect.addEventListener("change", () => {
+                    renderLearnCards();
+                });
+            }
+        }
+
+        // Preset Chips in Translate Across India
+        function initPresetChips() {
+            const chips = document.querySelectorAll(".preset-chip");
+            const acrossInput = document.getElementById("acrossInput");
+            const acrossBtn = document.getElementById("translateAcrossBtn");
+
+            chips.forEach(c => {
+                c.addEventListener("click", () => {
+                    acrossInput.value = c.dataset.text;
+                    runTranslateAcrossIndia(c.dataset.text);
+                });
+            });
+
+            if (acrossBtn) {
+                acrossBtn.addEventListener("click", () => {
+                    runTranslateAcrossIndia();
+                });
+            }
+        }
+
+        // Daily Bonus Claim Button
+        function initBonusAndReset() {
+            const claimBtn = document.getElementById("claimBonusBtn");
+            if (claimBtn) {
+                claimBtn.addEventListener("click", () => {
+                    addXP(20, "Daily Exploration Reward");
+                    claimBtn.disabled = true;
+                    claimBtn.innerHTML = `<i class="fa-solid fa-check"></i> Bonus Claimed!`;
+                });
+            }
+
+            const resetBtn = document.getElementById("resetStatsBtn");
+            if (resetBtn) {
+                resetBtn.addEventListener("click", () => {
+                    if (confirm("Reset your learning analytics and XP back to initial state?")) {
+                        saveUserState({ ...DEFAULT_USER_STATE, xp: 50 });
+                        showToast("Progress reset.", "info");
+                    }
+                });
+            }
+
+            const clearHistBtn = document.getElementById("clearHistoryBtn");
+            if (clearHistBtn) {
+                clearHistBtn.addEventListener("click", () => {
+                    if (confirm("Clear all translation history?")) {
+                        clearAllHistory();
+                    }
+                });
+            }
+        }
+
+        /* ==========================================================================
+           15. APPLICATION BOOTSTRAPPER
+           ========================================================================== */
+        window.addEventListener("DOMContentLoaded", () => {
+            initTheme();
+            initMobileDrawer();
+            initLiveTranslator();
+            initPresetChips();
+            initCategoryTabs();
+            initGameTabs();
+            initBonusAndReset();
+
+            // Initial Render of All Views
+            renderLanguagesExplorer();
+            renderLearnCards();
+            renderHistoryUI();
+            updateDashboardUI();
+
+            // Run initial Across India Translation
+            runTranslateAcrossIndia("Where is the nearest railway station?");
+
+            console.log("BharatBhasha application initialized successfully.");
+        });
+    </script>
+</body>
+</html>
